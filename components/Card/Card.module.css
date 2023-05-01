@@ -1,0 +1,17 @@
+.container {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.selected {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, var(--primary-color) 0px 0px 0px 1px;
+}
+
+.hover:hover {
+  opacity: 0.85;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, var(--primary-color) 0px 0px 0px 1px;
+}

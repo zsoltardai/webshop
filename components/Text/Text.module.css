@@ -1,0 +1,25 @@
+.text {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.h1 {
+  font-size: 22pt;
+}
+
+.h2 {
+  font-size: 18pt;
+}
+
+.h3 {
+  font-size: 14pt;
+}
+
+.body {
+  font-size: 12px;
+}
+
+.small {
+  font-size: 8pt;
+}

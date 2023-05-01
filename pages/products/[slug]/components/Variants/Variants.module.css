@@ -1,0 +1,10 @@
+.container {
+  overflow: scroll;
+  padding: 25px 5px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.image {
+  object-fit: contain;
+}
