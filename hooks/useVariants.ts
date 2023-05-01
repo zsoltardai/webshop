@@ -1,9 +1,10 @@
 import {getVariants} from '@webshop/api/variants';
 import useApi from './useApi';
 
+import type {Variant} from '@webshop/models';
 
 type UseVariants = () => {
-  variants?: any;
+  variants?: Variant[];
   loading: boolean;
   error?: string;
   getVariants: VoidFunction;
@@ -11,9 +12,9 @@ type UseVariants = () => {
 
 const useVariants: UseVariants = () => {
 
-  const fetcher = async (): Promise<any> => getVariants();
+  const fetcher = async (): Promise<Variant[]> => getVariants();
 
-  const {data: variants, loading, error, get: getHandler} = useApi<any>(fetcher);
+  const {data: variants, loading, error, get: getHandler} = useApi<Variant[]>(fetcher);
 
   return {
     variants,

@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 
 import {PrismaClient, Prisma} from '@prisma/client';
 
-import {Attribute, Product, Variant} from '@webshop/models';
+import {Product, Variant} from '@webshop/models';
 
 
 const productQuery = {
@@ -83,9 +83,11 @@ const getProduct = (object: GetProductQueryResult): Product => {
     (variant) => {
       return {
         id: variant.id,
+        slug: object.slug,
         name: variant.name,
+        description: object.description,
         price: Number(variant.price),
-        attributes: variant.attributes as Prisma.JsonObject,
+        attributes: variant.attributes as {[key: string]: string},
         images,
       };
     },

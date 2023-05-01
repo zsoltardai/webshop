@@ -18,6 +18,7 @@ const Layout: React.FC<AppProps> = (props) => {
   const {Component, pageProps} = props;
   return (
     <div className={styles.container}>
+      <Warning />
       <Header />
       <div className={styles.content}>
         <Component {...pageProps} />
@@ -72,6 +73,16 @@ const Header: React.FC = () => {
           <Button title={token ? 'Kijelentkezés' : 'Bejelentkezés'} width='100%' onClick={onClick} />
         </div>
       </div>
+    </div>
+  );
+};
+
+const Warning: React.FC = () => {
+  return (
+    <div className={styles.warning}>
+      <Text variant='small' color="#FFFFFF" uppercase>
+        Ez csak egy példa projekt, nem egy éles webshop!
+      </Text>
     </div>
   );
 };

@@ -29,12 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
             select: {
               name: true,
               price: true,
-              productAttributes: {
-                select: {
-                  name: true,
-                  value: true,
-                }
-              },
+              attributes: true,
             },
           },
         },

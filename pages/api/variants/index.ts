@@ -92,7 +92,7 @@ const getVariants = (objects: GetVariantsQueryResult[]): Variant[] => {
         slug: object.products.slug, 
         name: object.name,
         price: Number(object.price),
-        attributes: object.attributes as Prisma.JsonObject,
+        attributes: object.attributes as {[key: string]: string},
         images,
       };
     },
