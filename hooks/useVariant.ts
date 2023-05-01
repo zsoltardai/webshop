@@ -1,4 +1,4 @@
-import {getVariant} from '@webshop/api/variants';
+import {getVariant} from '@webshop/api-logic/variants';
 import useApi from './useApi';
 
 import type {Variant} from '@webshop/models';

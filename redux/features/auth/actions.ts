@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import authApi from '@webshop/api/auth';
+import authApi from '@webshop/api-logic/auth';
 
 import type {LoginParams, RegisterParams} from '@webshop/models/Auth';
 

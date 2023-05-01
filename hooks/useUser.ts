@@ -1,4 +1,4 @@
-import {getUser} from '@webshop/api/user';
+import {getUser} from '@webshop/api-logic/user';
 
 import type {User} from '@webshop/models';
 

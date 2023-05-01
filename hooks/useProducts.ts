@@ -1,4 +1,4 @@
-import {getProducts} from '@webshop/api/products';
+import {getProducts} from '@webshop/api-logic/products';
 import useApi from './useApi';
 
 import type {Product} from '@webshop/models';
