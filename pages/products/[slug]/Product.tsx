@@ -53,12 +53,14 @@ const Product: React.FC = () => {
     <div className={styles.container}>
       <Card objectFit='contain'>
         <img className={styles.image} src={variant?.images?.[0]} alt="" />
-        <Card width={80}>
-          <img src="/images/empty.png" alt="" />
-        </Card>
+        {/*
+          <Card width={80}>
+            <img src="/images/empty.png" alt="" />
+          </Card>
+        */}
       </Card>
 
-      <Card>
+      <Card marginBottom={24}>
         <Text variant='h1' marginBottom={12}>{variant?.name}</Text>
 
         <Text marginBottom={24}>{product.description}</Text>

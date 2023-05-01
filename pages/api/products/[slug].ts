@@ -88,7 +88,7 @@ const getProduct = (object: GetProductQueryResult): Product => {
         description: object.description,
         price: Number(variant.price),
         attributes: variant.attributes as {[key: string]: string},
-        images,
+        images: variant.productImages.map((image) => image.imageUrl),
       };
     },
   );

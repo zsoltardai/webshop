@@ -19,7 +19,7 @@ const Variants: React.FC<Props> = (props) => {
     <Flex className={styles.container} marginBottom={12}>
       {variants.map(
         (productVariant: Variant, index: number): JSX.Element => {
-          const image: string = '/images/empty.png';
+          const image: string = productVariant.images?.[0] || '/images/empty.png';
           const isSelected: boolean = productVariant.id === current?.id;
           return (
             <Card
@@ -27,11 +27,13 @@ const Variants: React.FC<Props> = (props) => {
               width={80}
               marginLeft={index === 0 ? 0 : 10}
               marginRight={index === variants.length - 1 ? 0 : 10}
+              padding={2}
               onClick={onSelect.bind(this, productVariant)}
               selected={isSelected}
             >
               <img
                 className={styles.image}
+                style={{borderRadius: 5}}
                 src={image} 
               />
             </Card>
