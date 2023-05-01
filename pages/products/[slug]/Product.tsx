@@ -5,7 +5,8 @@ import {useProduct, useAuth} from '@webshop/hooks';
 
 import {Card, Text, Flex, Button, ActivityIndicator, If} from '@webshop/components';
 
-import {Attributes, Variants} from './components';
+import Attributes from './components/Attributes';
+import Variants from './components/Variants';
 
 import currencyFormatter from '@webshop/helpers/currencyFormatter';
 

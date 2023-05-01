@@ -72,7 +72,7 @@ const getVariant = (object: GetVariantQueryResult): Variant => {
     name: object.name,
     price: Number(object.price),
     images,
-    attributes: object.attributes as Prisma.JsonObject,
+    attributes: object.attributes as {[key: string]: string},
   };
 };
 
