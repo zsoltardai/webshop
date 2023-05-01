@@ -37,10 +37,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     case 'GET':
 
-      const productVariants = await client.productVariants.findMany({...variantsQuery,});
+      try {
 
-      res.status(200).json(getVariants(productVariants));
-      return;
+        const productVariants = await client.productVariants.findMany({...variantsQuery,});
+
+
+        res.status(200).json(getVariants(productVariants));
+        return;
+      } catch (error) {
+        res.status(200).send(JSON.stringify(error, null, 4));
+        return;
+      }
+
 
     case 'POST':
       if (!await validateRequestBody(req, res, client)) return;
