@@ -5,7 +5,7 @@ import {ActivityIndicator, Grid, Text} from '@webshop/components';
 
 import {useVariants} from '@webshop/hooks';
 
-import {ProductCard} from './components';
+import ProductCard from './components/ProductCard';
 
 import type {Variant} from '@webshop/models';
 
