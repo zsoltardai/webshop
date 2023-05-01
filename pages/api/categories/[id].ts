@@ -1,10 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
-import {IncomingMessage} from 'http';
 
 import {PrismaClient} from '@prisma/client';
 
-
-const METHODS: IncomingMessage['method'][] = ['GET'];
 
 type ResponsePayload = any;
 
@@ -12,37 +9,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
   const {id} = req.query;
 
-  if (!METHODS.includes(req.method)) return;
-
   const client: PrismaClient = new PrismaClient();
 
-  const category = await client.categories.findFirst({
-    where: {id: Number(id)},
-    select: {
-      name: true,
-      description: true,
-      products: {
+  switch (req.method) {
+    case 'GET':
+      const category = await client.categories.findFirst({
+        where: {id: Number(id)},
         select: {
           name: true,
           description: true,
-          productVariants: {
+          products: {
             select: {
+              id: true,
               name: true,
-              price: true,
-              productAttributes: {
-                select: {
-                  name: true,
-                  value: true,
-                }
-              },
+              description: true,
             },
           },
         },
-      },
-    },
-  });
+      });
+    
+      res.status(200).json(category);
+      return;
 
-  res.status(200).json(category);
+    default:
+
+      res.status(405).send('Only GET method is allowed!');
+      return;
+  };
 };
 
 export default handler;

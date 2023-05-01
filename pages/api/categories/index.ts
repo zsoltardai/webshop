@@ -1,24 +1,22 @@
 import {NextApiRequest, NextApiResponse} from 'next';
-import {IncomingMessage} from 'http';
 
 import {PrismaClient} from '@prisma/client';
 
-
-const METHODS: IncomingMessage['method'][] = ['GET', 'POST'];
 
 type ResponsePayload = any;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
 
-  if (!METHODS.includes(req.method)) {
-    res.status(405).send('Only POST and GET methods are allowed!');
-    return;
-  }
-
   const client: PrismaClient = new PrismaClient();
 
-
   switch (req.method) {
+
+    case 'GET':
+
+      const categories = await client.categories.findMany({});
+
+      res.status(200).json(categories);
+      return;
 
     case 'POST':
 
@@ -38,8 +36,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
       return;
 
     default:
-      const categories = await client.categories.findMany({});
-      res.status(200).json(categories);
+
+      res.status(405).send('Only POST and GET methods are allowed!');
       return;
   }
 };
