@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react';
+import React, {CSSProperties} from 'react';
 
 import styles from './Text.module.css';
 
 
 type Props = Partial<CSSProperties> & {
   children: any;
-  variant?: 'h1' | 'h2' | 'h3' | 'body' | 'small';
+  variant?: 'h1' | 'h2' | 'h3' | 'body' | 'bold' | 'small';
   color?: string;
   uppercase?: boolean;
 };

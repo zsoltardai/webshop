@@ -21,3 +21,35 @@ export const PASSWORD = yup
 .required(
   'A jelszó mező kitöltése kötelező!'
 );
+
+
+export const CONFIRMATION = yup
+.string()
+.oneOf(
+  [yup.ref('password')],
+  'A ket jelszónak meg kell egyeznie egymással!',
+)
+.required(
+  'A jelszó megerősítése mező kitöltése kötelező!',
+);
+
+
+export const FIRST_NAME = yup
+.string()
+.min(
+  3,
+  'A keresztnévnek minimum 3 karakter hosszúságúnak kell lennie!'
+)
+.required(
+  'A keresztnév mező kitöltése kötelező!',
+);
+
+export const LAST_NAME = yup
+.string()
+.min(
+  3,
+  'A vezetéknévnek minimum 3 karakter hosszúságúnak kell lennie!'
+)
+.required(
+  'A vezetéknév mező kitöltése kötelező!',
+);

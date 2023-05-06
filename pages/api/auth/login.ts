@@ -26,7 +26,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
   const passwordHash: string = hash(password);
 
-  const user = await client.users.findFirst({where: {email}});
+  let user;
+
+  try {
+    user = await client.users.findFirst({where: {email}});
+  } catch (error: any) {
+    res.status(500).send('Failed to connect to the database, please try again later!');
+    return;
+  }
 
   if (!user) {
     res.status(404).send(`We couldn't find a user with the provided e-mail address!`);
