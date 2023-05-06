@@ -11,21 +11,21 @@ const variantQuery = {
     name: true,
     price: true,
     attributes: true,
-    products: {
+    product: {
       select: {
         slug: true,
         description: true,
       },
     },
-    productImages: {
+    images: {
       select: {
-        imageUrl: true,
+        url: true,
       },
     },
   },
 };
 
-type GetVariantQueryResult = Prisma.productVariantsGetPayload<typeof variantQuery>;
+type GetVariantQueryResult = Prisma.VariantGetPayload<typeof variantQuery>;
 
 type ResponsePayload = any;
 
@@ -39,17 +39,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     case 'GET':
 
-      const productVariant = await client.productVariants.findFirst({
-        where: {id: Number(id)},
-        ...variantQuery,
-      });
+      let variant;
 
-      if (!productVariant) {
+      try {
+        variant = await client.variant.findFirst({
+          where: {id: Number(id)},
+          ...variantQuery,
+        });
+      } catch (error: any) {
+
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
+
+      if (!variant) {
         res.status(404).send(`We couldn't find product variant with the id: ${id}!`);
         return;
       }
     
-      res.status(200).json(getVariant(productVariant));
+      res.status(200).json(getVariant(variant));
       return;
 
     default:
@@ -61,14 +69,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
 const getVariant = (object: GetVariantQueryResult): Variant => {
 
-  const images: string[] = object.productImages.map(
-    (image) => image.imageUrl,
+  const images: string[] = object.images.map(
+    (image) => image.url,
   );
 
   return {
     id: object.id,
-    description: object.products.description,
-    slug: object.products.slug,
+    description: object.product.description,
+    slug: object.product.slug,
     name: object.name,
     price: Number(object.price),
     images,

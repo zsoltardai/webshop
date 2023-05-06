@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 
 import {PrismaClient} from '@prisma/client';
 
-import {verify} from '@webshop/utils/jwt';
+import {verifyJWT} from '@webshop/helpers/verifyJWT';
 
 
 type ResponsePayload = any;
@@ -11,31 +11,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
   const client: PrismaClient = new PrismaClient();
 
-  const token: string = req.headers['authorization'] as string;
+  const content = await verifyJWT(req, res);
 
-  const {id} = await verify(token) as {id: string};
+  if (!content) return;
 
-  if (!id) {
-    res.status(403).send('Unauthorized!');
-    return;
-  }
+  const {id} = content;
 
   switch (req.method) {
 
     case 'DELETE': 
 
-      const user = await client.users.findFirst({
-        where: {
-          id: Number(id),
-        },
-      });
+      let user;
+
+      try {
+        user =  await client.user.findFirst({where: {id: Number(id)}});
+      } catch (error: any) {
+
+        console.log(error.message);
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
 
       if (!user) {
         res.status(404).send(`We could not find a user with the provided id!`);
         return;
       }
 
-      await client.users.delete({where: {id: Number(id)}});
+      await client.user.delete({where: {id: Number(id)}});
 
       res.status(204).send('');
       return;
@@ -46,11 +48,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
         if (!validateRequestBody(req, res)) return;
 
         if (req.body.hasOwnProperty('email')) {
-          const user = await client.users.findFirst({
-            where: {
-              email: req.body.email,
-            },
-          });
+
+          let user;
+
+          try {
+            user =  await client.user.findFirst({
+              where: {
+                email: req.body.email,
+              },
+            });
+          } catch (error: any) {
+
+            res.status(500).send('Failed to connect to the database, please try again later!');
+            return;
+          }
 
           if (!!user) {
             res.status(409).send('A user already exists with the provided e-mail address!');
@@ -65,35 +76,55 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
           update[key] = req.body[key];
         }
 
-        const user = await client.users.update({
-          where: {id: Number(id)},
-          data: {...update},
-        })
+        let user;
 
-        const {firstName, lastName, email} = user;
+        try {
+          user = await client.user.update({
+            where: {id: Number(id)},
+            data: {...update},
+          })
+
+        } catch (error: any) {
+
+          res.status(500).send('Failed to connect to the database, please try again later!');
+          return;
+        }
+
+        const {firstName, lastName, email, admin} = user;
   
         return res.status(200).json({
           firstName,
           lastName,
           email,
+          admin,
         });
       }
 
     case 'GET':
       {
-        const user = await client.users.findFirst({where: {id: Number(id)}});
+        let user;
+
+        try {
+          user = await client.user.findFirst({where: {id: Number(id)}});
+        } catch (error: any) {
+
+          res.status(500).send('Failed to connect to the database, please try again later!');
+          return;
+        }
+
 
         if (!user) {
           res.status(404).send(`We couldn't find a user with the provided id!`);
           return;
         }
 
-        const {firstName, lastName, email} = user;
+        const {firstName, lastName, email, admin} = user;
 
         return res.status(200).json({
           firstName,
           lastName,
           email,
+          admin,
         });
       }
       

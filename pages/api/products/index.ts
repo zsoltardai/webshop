@@ -4,6 +4,8 @@ import {PrismaClient, Prisma} from '@prisma/client';
 
 import type {Product} from '@webshop/models';
 
+import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
+
 
 const productsQuery = {
   select: {
@@ -11,13 +13,13 @@ const productsQuery = {
     slug: true,
     name: true,
     description: true,
-    productVariants: {
+    variants: {
       select: {
         name: true,
         price: true,
-        productImages: {
+        images: {
           select: {
-            imageUrl: true,
+            url: true,
           },
         },
       },
@@ -25,7 +27,7 @@ const productsQuery = {
   },
 };
 
-type GetProductsQueryResult = Prisma.productsGetPayload<typeof productsQuery>;
+type GetProductsQueryResult = Prisma.ProductGetPayload<typeof productsQuery>;
 
 type ResponsePayload = any;
 
@@ -37,41 +39,59 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     case 'POST':
 
+    if (!await verifyAdminJWT(req, res)) return;
+
     if (!await validateRequestBody(req, res, client)) return;
 
       const {slug, productName, variantName, images, description, price, categoryId, attributes = []} = req.body;
     
-      const product = await client.products.create({
-        data: {
-          slug,
-          name: productName,
-          description,
-          categoryId,
-          productVariants: {
-            create: {
-              name: variantName,
-              price,
-              attributes,
-              productImages: {
-                createMany: {
-                  data: images.map(
-                    (image: string) => ({
-                      imageUrl: image,
-                    }),
-                  ),
+      let product;
+
+      try {
+        product = await client.product.create({
+          data: {
+            slug,
+            name: productName,
+            description,
+            categoryId,
+            variants: {
+              create: {
+                name: variantName,
+                price,
+                attributes,
+                images: {
+                  createMany: {
+                    data: images.map(
+                      (image: string) => ({
+                        url: image,
+                      }),
+                    ),
+                  },
                 },
               },
-            },
-          }
-        },
-      });
+            }
+          },
+        });
+      } catch (error: any) {
+
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
     
       res.status(201).json(product);
       return;
 
     case 'GET':
 
-      const products = await client.products.findMany({...productsQuery});
+      let products;
+
+      try {
+        products = await client.product.findMany({...productsQuery});
+      } catch (error: any) {
+
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
 
       res.status(200).json(getProducts(products));
       return;
@@ -87,14 +107,14 @@ const getProducts = (objects: GetProductsQueryResult[]): Product[] => {
   return objects.map(
     (object): Product => {
 
-      const price: number = Number(object.productVariants?.[0]?.price);
+      const price: number = Number(object.variants?.[0]?.price);
 
       const images: string[] = [];
 
-      object.productVariants.forEach(
+      object.variants.forEach(
         (variant): void => {
-          variant.productImages.map(
-            (image) => images.push(image.imageUrl),
+          variant.images.map(
+            (image) => images.push(image.url),
           );
         },
       );
@@ -122,7 +142,7 @@ const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<Res
     return false;
   }
 
-  const product = await client.products.findFirst({where: {slug}});
+  const product = await client.product.findFirst({where: {slug}});
 
   if (!!product) {
     res.status(409).send('A product already exists with the provided slug, choose an other one!');
@@ -159,7 +179,7 @@ const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<Res
     return false;
   }
 
-  const category = await client.categories.findFirst({
+  const category = await client.category.findFirst({
     where: {
       id: categoryId,
     },

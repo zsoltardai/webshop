@@ -11,21 +11,21 @@ const productQuery = {
     slug: true,
     name: true,
     description: true,
-    categories: {
+    category: {
       select: {
         name: true,
         description: true,
       },
     },
-    productVariants: {
+    variants: {
       select: {
         id: true,
         name: true,
         price: true,
         attributes: true,
-        productImages: {
+        images: {
           select: {
-            imageUrl: true,
+            url: true,
           },
         },
       },
@@ -33,7 +33,7 @@ const productQuery = {
   },
 };
 
-type GetProductQueryResult = Prisma.productsGetPayload<typeof productQuery>;
+type GetProductQueryResult = Prisma.ProductGetPayload<typeof productQuery>;
 
 type ResponsePayload = any;
 
@@ -46,10 +46,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   switch (req.method) {
 
     case 'GET':
-      const product = await client.products.findFirst({
-        where: {slug: slug as string},
-        ...productQuery,
-      });
+      let product;
+
+      try {
+        product = await client.product.findFirst({
+          where: {slug: slug as string},
+          ...productQuery,
+        });
+      } catch (error: any) {
+        console.log(error.message);
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
 
       if (!product) {
         res.status(404).send(`We couldn't find a product with the provided slug: ${slug}!`);
@@ -67,19 +75,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
 const getProduct = (object: GetProductQueryResult): Product => {
 
-  const price: number = Number(object.productVariants?.[0].price);
+  const price: number = Number(object.variants?.[0].price);
 
   const images: string[] = [];
 
-  object.productVariants.forEach(
+  object.variants.forEach(
     (variant): void => {
-      variant.productImages.forEach(
-        (image) => images.push(image.imageUrl),
+      variant.images.forEach(
+        (image) => images.push(image.url),
       );
     },
   );
 
-  const variants: Variant[] = object.productVariants.map(
+  const variants: Variant[] = object.variants.map(
     (variant) => {
       return {
         id: variant.id,
@@ -88,7 +96,7 @@ const getProduct = (object: GetProductQueryResult): Product => {
         description: object.description,
         price: Number(variant.price),
         attributes: variant.attributes as {[key: string]: string},
-        images: variant.productImages.map((image) => image.imageUrl),
+        images: variant.images.map((image) => image.url),
       };
     },
   );

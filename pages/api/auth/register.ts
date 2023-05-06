@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   let user;
 
   try {
-    user = await client.users.findFirst({where: {email}});
+    user = await client.user.findFirst({where: {email}});
   } catch (error: any) {
     res.status(500).send('Failed to connect to the databse, please try again later!');
     return;
@@ -40,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   const passwordHash: string = hash(password);
 
   try {
-    await client.users.create({
+    await client.user.create({
       data: {
         firstName,
         lastName,
