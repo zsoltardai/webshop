@@ -13,15 +13,16 @@ type Props = CSSProperties & {
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   color?: string;
   title: string;
+  uppercase?: boolean;
 };
 
 const Link: React.FC<Props> = (props) => {
-  const {href, title, color = colors.primary, onClick, ...style} = props;
+  const {href, title, color = colors.primary, uppercase, onClick, ...style} = props;
 
   if (href) {
     return (
       <NextLink className={styles.link} href={href} style={{textDecoration: 'none'}}>
-        <Text color={color} uppercase {...style}>
+        <Text color={color} uppercase={uppercase} {...style}>
           {title}
         </Text>
       </NextLink>
@@ -30,7 +31,7 @@ const Link: React.FC<Props> = (props) => {
 
   return (
     <span className={styles.link} onClick={onClick}>
-      <Text color={color} uppercase {...style}>
+      <Text color={color} uppercase={uppercase} {...style}>
         {title}
       </Text>
     </span>
