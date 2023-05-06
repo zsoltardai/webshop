@@ -52,7 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
           data: {
             name,
             description,
-            userId: Number(id),
+            createdById: Number(id),
           },
         });
       } catch (error: any) {

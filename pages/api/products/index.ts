@@ -39,7 +39,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     case 'POST':
 
-    if (!await verifyAdminJWT(req, res)) return;
+    const content = await verifyAdminJWT(req, res);
+
+    if (!content) return;
+
+    const {id} = content;
 
     if (!await validateRequestBody(req, res, client)) return;
 
@@ -54,6 +58,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
             name: productName,
             description,
             categoryId,
+            createdById: Number(id),
             variants: {
               create: {
                 name: variantName,

@@ -57,6 +57,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
       if (!content) return;
 
+      const {id: userId} = content;
+
       if (!await validateRequestBody(req, res, client)) return;
 
       const {id, name, images, price, attributes} = req.body;
@@ -70,6 +72,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
             name,
             price,
             attributes,
+            createdById: Number(userId),
             images: {
               createMany: {
                 data: images.map(
