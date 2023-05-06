@@ -64,12 +64,12 @@ const Header: React.FC = () => {
         }}
       >
         <div className={styles['header-content']} >
-          <Link title='Kezdőlap' href="/" />
-          <Link title='Termékek' href="/products" />
+          <Link uppercase title='Kezdőlap' href="/" />
+          <Link uppercase title='Termékek' href="/products" />
         </div>
 
         <div className={styles['header-content']} style={{justifySelf: 'flex-end'}}>
-          {!!token && <Link title='Profil' href="/profile" />}
+          {!!token && <Link uppercase title='Profil' href="/profile" />}
           <Button title={token ? 'Kijelentkezés' : 'Bejelentkezés'} width='100%' onClick={onClick} />
         </div>
       </div>

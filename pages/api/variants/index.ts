@@ -4,6 +4,8 @@ import {PrismaClient, Prisma} from '@prisma/client';
 
 import type {Variant} from '@webshop/models';
 
+import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
+
 
 const variantsQuery = {
   select: {
@@ -11,21 +13,21 @@ const variantsQuery = {
     name: true,
     price: true,
     attributes: true,
-    products: {
+    product: {
       select: {
         slug: true,
         description: true,
       },
     },
-    productImages: {
+    images: {
       select: {
-        imageUrl: true,
+        url: true,
       },
     },
   },
 };
 
-type GetVariantsQueryResult = Prisma.productVariantsGetPayload<typeof variantsQuery>;
+type GetVariantsQueryResult = Prisma.VariantGetPayload<typeof variantsQuery>;
 
 type ResponsePayload = any;
 
@@ -36,35 +38,59 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   switch (req.method) {
 
     case 'GET':
-      const productVariants = await client.productVariants.findMany({...variantsQuery});
+      let variants;
 
-      res.status(200).json(getVariants(productVariants));
+      try {
+        variants = await client.variant.findMany({...variantsQuery});
+      } catch (error: any) {
+
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
+
+      res.status(200).json(getVariants(variants));
       return;
 
     case 'POST':
+
+      const content = await verifyAdminJWT(req, res);
+
+      if (!content) return;
+
+      const {id: userId} = content;
+
       if (!await validateRequestBody(req, res, client)) return;
 
       const {id, name, images, price, attributes} = req.body;
     
-      const productVariant = await client.productVariants.create({
-        data: {
-          productId: id,
-          name,
-          price,
-          attributes,
-          productImages: {
-            createMany: {
-              data: images.map(
-                (image: string) => ({
-                  imageUrl: image,
-                }),
-              ),
+      let variant;
+
+      try {
+        variant = await client.variant.create({
+          data: {
+            productId: id,
+            name,
+            price,
+            attributes,
+            createdById: Number(userId),
+            images: {
+              createMany: {
+                data: images.map(
+                  (image: string) => ({
+                    url: image,
+                  }),
+                ),
+              },
             },
           },
-        },
-      });
+        });
+      } catch (error: any) {
+        
+        res.status(500).send('Failed to connect to the database, please try again later!');
+        return;
+      }
     
-      res.status(201).json(productVariant);
+      res.status(201).json(variant);
       return;
 
     default:
@@ -81,14 +107,14 @@ const getVariants = (objects: GetVariantsQueryResult[]): Variant[] => {
 
       const images: string[] = [];
 
-      object.productImages.forEach(
-        (image) => images.push(image.imageUrl),
+      object.images.forEach(
+        (image) => images.push(image.url),
       );
 
       return {
         id: object.id,
-        description: object.products.description,
-        slug: object.products.slug, 
+        description: object.product.description,
+        slug: object.product.slug, 
         name: object.name,
         price: Number(object.price),
         attributes: object.attributes as {[key: string]: string},
@@ -107,7 +133,15 @@ const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<Res
     return false;
   }
 
-  const product = await client.products.findFirst({where: {id: id}});
+  let product;
+
+  try {
+    product = await client.product.findFirst({where: {id: id}});
+  } catch (error: any) {
+
+    res.status(500).send('Failed to connect to the database, please try again later!');
+    return false;
+  }
 
   if (!product) {
     res.status(404).send('There is no product with the provided id!');

@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
   switch (req.method) {
     case 'GET':
-      const category = await client.categories.findFirst({
+      const category = await client.category.findFirst({
         where: {id: Number(id)},
         select: {
           name: true,

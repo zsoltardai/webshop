@@ -23,11 +23,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
   const client: PrismaClient = new PrismaClient();
 
-  const user = await client.users.findFirst({
-    where: {
-      email,
-    }
-  });
+  let user;
+
+  try {
+    user = await client.user.findFirst({where: {email}});
+  } catch (error: any) {
+    res.status(500).send('Failed to connect to the databse, please try again later!');
+    return;
+  }
 
   if (!!user) {
     res.status(409).send(`A user already exists with the provided email: "${email}" address!`);
@@ -37,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   const passwordHash: string = hash(password);
 
   try {
-    await client.users.create({
+    await client.user.create({
       data: {
         firstName,
         lastName,
@@ -46,12 +49,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
       }
     });
   } catch (error: any) {
-    res.status(500).send('');
+    res.status(500).send('Failed to connect to the databse, please try again later!');
     return;
   }
 
 
-  res.status(200).send('');
+  res.status(201).send('');
 };
 
 
