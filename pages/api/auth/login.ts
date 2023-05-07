@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {IncomingMessage} from 'http';
 
-import {PrismaClient} from '@prisma/client';
+import {client} from '@webshop/prisma/client';
 
 import hash from '@webshop/utils/hash';
 import {sign} from '@webshop/utils/jwt';
@@ -21,8 +21,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   if (!validateRequestBody(req, res)) return;
 
   const {email, password} = req.body;
-  
-  const client: PrismaClient = new PrismaClient();
 
   const passwordHash: string = hash(password);
 

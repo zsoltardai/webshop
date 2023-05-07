@@ -1,6 +1,8 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {PrismaClient, Prisma} from '@prisma/client';
+import {Prisma} from '@prisma/client';
+
+import {client} from '@webshop/prisma/client';
 
 import {Product, Variant} from '@webshop/models';
 
@@ -40,8 +42,6 @@ type ResponsePayload = any;
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
 
   const {slug} = req.query;
-
-  const client: PrismaClient = new PrismaClient();
 
   switch (req.method) {
 
@@ -110,6 +110,23 @@ const getProduct = (object: GetProductQueryResult): Product => {
     price,
     variants,
   };
+};
+
+export const prefetchProduct = async (slug: string): Promise<Product | undefined> => {
+
+    try {
+      const product = await client.product.findFirst({
+        where: {slug: slug as string},
+        ...productQuery,
+      });
+
+      if (!product) return;
+
+      return getProduct(product);
+
+    } catch (error: any) {
+      return;
+    }
 };
 
 export default handler;

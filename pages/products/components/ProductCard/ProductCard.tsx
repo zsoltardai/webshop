@@ -2,9 +2,9 @@ import React, {MouseEventHandler} from 'react';
 
 import {Card, Text, Button, If, Flex} from '@webshop/components';
 
-import type {Variant} from '@webshop/models';
+import type {Product} from '@webshop/models';
 
-import {useAuth} from '@webshop/hooks';
+import {useAuth, useWindow} from '@webshop/hooks';
 
 import currencyFormatter from '@webshop/helpers/currencyFormatter';
 import textShortener from '@webshop/helpers/textShortener';
@@ -15,7 +15,7 @@ import styles from './ProductCard.module.css';
 
 
 type Props = {
-  variant: Variant,
+  product: Product,
   onClick?: MouseEventHandler<HTMLDivElement>;
   onButtonClick?: MouseEventHandler<HTMLButtonElement>;
 };
@@ -24,7 +24,7 @@ const ProductCard: React.FC<Props> = (props) => {
   const {
     onClick,
     onButtonClick,
-    variant: {
+    product: {
       name,
       description,
       price,
@@ -34,13 +34,15 @@ const ProductCard: React.FC<Props> = (props) => {
 
   const {token} = useAuth();
 
+  const {isMobile} = useWindow();
+
   return (
     <Card className={styles.container} margin={10} onClick={onClick} flex={1}>
-      <img style={{objectFit: 'contain', borderRadius: 5, marginBottom: 12}} src={images?.[0]} alt="" />
-      <Text variant='h3' marginBottom={12}>
-        {textShortener(name, 6)}
+      <img style={{objectFit: 'cover', borderRadius: 5, marginBottom: 12, width: "100%", height: 200}} src={images?.[0]} alt="" />
+      <Text variant='h3' height={isMobile ? 30 : 50} marginBottom={12}>
+        {textShortener(name, 30)}
       </Text>
-      <Text marginBottom={12}>
+      <Text marginBottom={12} height={isMobile ? 50 : 80}>
         {textShortener(description)}
       </Text>
       <Text marginBottom={12} color={colors.primary}>
@@ -56,7 +58,7 @@ const ProductCard: React.FC<Props> = (props) => {
 
       <If condition={!token}>
         <Flex>
-          <Text variant='small' textAlign='center' color={colors.error}>
+          <Text variant='small' textAlign='center' width="100%" color={colors.error}>
             Be kell jelentkezz a termék kosárhoz adásához!
           </Text>
         </Flex>
