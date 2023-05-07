@@ -5,7 +5,7 @@ import {Text, Flex, Link} from '@webshop/components';
 
 import colors from '@webshop/constants/colors';
 
-import styles from '@webshop/styles/404.module.css';
+import styles from './404.module.css';
 
 
 const NotFound: React.FC = () => {

@@ -1,6 +1,8 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {PrismaClient, Prisma} from '@prisma/client';
+import {Prisma} from '@prisma/client';
+
+import {client} from '@webshop/prisma/client';
 
 import type {Variant} from '@webshop/models';
 
@@ -33,8 +35,6 @@ type ResponsePayload = any;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
 
-  const client: PrismaClient = new PrismaClient();
-
   switch (req.method) {
 
     case 'GET':
@@ -59,7 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
       const {id: userId} = content;
 
-      if (!await validateRequestBody(req, res, client)) return;
+      if (!await validateRequestBody(req, res)) return;
 
       const {id, name, images, price, attributes} = req.body;
     
@@ -124,7 +124,7 @@ const getVariants = (objects: GetVariantsQueryResult[]): Variant[] => {
   );
 };
 
-const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>, client: PrismaClient): Promise<boolean> => {
+const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<boolean> => {
 
   const {id, name, images, price, attributes} = req.body;
 

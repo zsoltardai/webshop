@@ -69,6 +69,7 @@ model Product {
   name        String    @db.VarChar(100)
   description String
   variants    Variant[]
+  tags        Tag[]
 
   categoryId Int      @map("category_id")
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
@@ -80,6 +81,21 @@ model Product {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("products")
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  products Product[]
+
+  createdById Int?  @map("created_by")
+  createdBy   User? @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tags")
 }
 
 model User {
@@ -95,6 +111,7 @@ model User {
   images     Image[]
   products   Product[]
   variants   Variant[]
+  tags       Tag[]
 
   cart   Cart?
   orders Order[]
@@ -108,7 +125,7 @@ model User {
 model Cart {
   id       Int       @id @default(autoincrement())
   quantity Int
-  variants  Variant[]
+  variants Variant[]
 
   userId Int  @unique @map("user_id")
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
