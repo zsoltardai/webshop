@@ -18,7 +18,6 @@ const Layout: React.FC<AppProps> = (props) => {
   const {Component, pageProps} = props;
   return (
     <div className={styles.container}>
-      <Warning />
       <Header />
       <div className={styles.content}>
         <Component {...pageProps} />
@@ -49,31 +48,34 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className={styles.header}>
-        {isMobile && (
-          <div className={styles['header-mobile']} onClick={toggleDropdown}>
-            <Text variant='h3' color={colors.primary}>Webshop</Text>
-            {!isDropdownOpen ? <IoMenu size={24} /> : <FaTimes size={24} />}
+   <div className={styles['header-container']}>
+      <Warning />
+      <div className={styles.header}>
+          {isMobile && (
+            <div className={styles['header-mobile']} onClick={toggleDropdown}>
+              <Text variant='h3' color={colors.primary}>Webshop</Text>
+              {!isDropdownOpen ? <IoMenu size={24} /> : <FaTimes size={24} />}
+            </div>
+          )}
+
+        <div
+          className={styles['header-content-container']} 
+          style={{
+            display: (isMobile && !isDropdownOpen) ? 'none' : 'flex',
+          }}
+        >
+          <div className={styles['header-content']} >
+            <Link uppercase title='Kezdőlap' href="/" />
+            <Link uppercase title='Termékek' href="/products" />
           </div>
-        )}
 
-      <div
-        className={styles['header-content-container']} 
-        style={{
-          display: (isMobile && !isDropdownOpen) ? 'none' : 'flex',
-        }}
-      >
-        <div className={styles['header-content']} >
-          <Link uppercase title='Kezdőlap' href="/" />
-          <Link uppercase title='Termékek' href="/products" />
-        </div>
-
-        <div className={styles['header-content']} style={{justifySelf: 'flex-end'}}>
-          {!!token && <Link uppercase title='Profil' href="/profile" />}
-          <Button title={token ? 'Kijelentkezés' : 'Bejelentkezés'} width='100%' onClick={onClick} />
+          <div className={styles['header-content']} style={{justifySelf: 'flex-end'}}>
+            {!!token && <Link uppercase title='Profil' href="/profile" />}
+            <Button title={token ? 'Kijelentkezés' : 'Bejelentkezés'} width='100%' onClick={onClick} />
+          </div>
         </div>
       </div>
-    </div>
+   </div>
   );
 };
 
