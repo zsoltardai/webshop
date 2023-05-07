@@ -1,0 +1,110 @@
+{
+  "0": {
+    "slug": "apple-macbook-air-m1",
+    "productName": "Apple MacBook Air M1",
+    "variantName": "Macbook Air 13“ M1 Silver Magyar 2020",
+    "description": "Az Apple MacBook Air M1 egy új generációs, ultravékony és könnyű laptop, amelyet az Apple fejlesztett ki. Az M1 chipnek köszönhetően a MacBook Air kiemelkedő teljesítményt nyújt, amely a legújabb alkalmazások és programok számára is elegendő. A laptop hihetetlenül hosszú akkumulátor-élettartammal rendelkezik, így akár egy teljes napot is képes működni egyetlen feltöltéssel. Az elegáns, alumínium borítású MacBook Air M1 emellett a legújabb Wi-Fi 6 technológiával és számos kényelmi funkcióval, mint például a Touch ID vagy az Apple új Magic Keyboard-je rendelkezik, így a felhasználók kényelmesen és hatékonyan dolgozhatnak bármilyen környezetben.",
+    "price": 389990,
+    "categoryId": 1,
+    "images": ["https://images.unsplash.com/photo-1609144324678-dff17a2d8892?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"],
+    "attributes": {
+        "Szín": "Space Grey",
+        "RAM": "8 GB",
+        "Processzor": "Apple M1 chip 8 core CPU",
+        "Tárhely": "256 GB",
+        "Videókártya": "Apple 7 core GPU",
+        "Operációs rendszer": "macOS Big Sur"
+    }
+  },
+  "1": {
+    "slug": "microsoft-surface-book-3",
+    "productName": "Microsoft Surface Book 3",
+    "variantName": "Microsoft Surface Book 3 Szürke - platinum",
+    "description": "A Microsoft Surface Book 3 laptop egy magas teljesítményű, két az egyben eszköz, amely a Microsoft által kifejlesztett Surface termékcsalád tagja. Ez a laptop különleges kialakítással rendelkezik, amely lehetővé teszi, hogy a kijelzőt leválasztva táblagépként használhassuk, vagy pedig az egész eszközt hagyományos laptopként funkcionálva alkalmazhassuk. A Surface Book 3 laptop a legújabb technológiákat és alkatrészeket tartalmazza, beleértve a legújabb Intel processzorokat, akár 32 GB RAM-ot, akár 2 TB SSD-t és dedikált grafikus kártyát. A kijelzője érintőképernyős és tollal használható, és 13,5 vagy 15 hüvelykes méretben kapható. Összességében a Microsoft Surface Book 3 egy igazi teljesítményorientált eszköz, amely kiválóan alkalmas a produktivitásra, a kreatív munkára és az otthoni szórakozásra is.",
+    "price": 746990,
+    "categoryId": 4,
+    "images": ["https://images.unsplash.com/photo-1595245150809-ef9436aaded6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"],
+    "attributes": {
+        "Gyártó": "Microsoft",
+        "Processzor": "Intel® Core™ i5 Processzor",
+        "RAM": "8 GB",
+        "SSD": "256 GB"
+    }
+  },
+  "2": {
+    "slug": "xbox-one",
+    "productName": "Xbox One",
+    "variantName": "Xbox Series S",
+    "description": "Az Xbox Series S az Xbox új generációs konzolja, amely az Xbox Series X kisebb testvére. Ez a konzol kisebb méretű, és kevesebb tárolókapacitással rendelkezik, de nagyobb ár-érték arányt kínál. Az Xbox Series S nagy teljesítményű, 120 fps 1440p játékélményt kínál, támogatja a DirectX Raytracing technológiát, és kompatibilis a korábbi Xbox játékokkal is. Emellett az Xbox Game Pass előfizetéssel több mint 100 játékhoz férhetünk hozzá, valamint lehetővé teszi az online játékot a barátokkal a Xbox Live Gold szolgáltatáson keresztül. Az Xbox Series S egy kiváló választás a játékok szerelmeseinek, akik szeretnének átélni egy magas színvonalú, immerszív játékélményt, kedvező áron.",
+    "price": 117890,
+    "categoryId": 4,
+    "images": ["https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2519&q=80"],
+    "attributes": {
+        "SSD": "512 GB"
+    }
+  },
+  "3": {
+    "slug": "mac-mini-m2",
+    "productName": "Mac mini M2",
+    "variantName": "Mac mini M2 - Ezüst",
+    "description": "A Mac mini - M2 chip az Apple által kifejlesztett, apró méretű asztali számítógép, amelyet az új M2 processzor hajt. Ez a számítógép kiemelkedő teljesítményt kínál a sokoldalú felhasználási lehetőségek széles skálájához, legyen szó munkáról, szórakozásról vagy kreatív tevékenységekről. Az M2 chip rendkívüli sebességet és hatékonyságot biztosít, ami lehetővé teszi, hogy a felhasználók zökkenőmentesen dolgozhassanak és szórakozhassanak. A Mac mini támogatja az Apple új operációs rendszerét, a macOS Monterey-t, és kompatibilis a legújabb technológiákkal, beleértve a Thunderbolt 4, a Wi-Fi 6 és az Ethernet 10Gb/1Gb hálózati csatlakozókat. Az Apple M2 chip és a Mac mini összekapcsolódása eredménye egy olyan kompakt, nagy teljesítményű eszköz, amely ideális megoldás lehet mindenki számára, aki egy erős és megbízható számítógépet keres, amely nem foglal sok helyet.",
+    "price": 299990,
+    "categoryId": 1,
+    "images": ["https://images.unsplash.com/photo-1636298813354-00d8200924a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"],
+    "attributes": {
+        "RAM": "8 GB",
+        "SSD": "256 GB",
+        "Szín": "Ezüst"
+    }
+  },
+  "4": {
+    "slug": "apple-magic-keyboard",
+    "productName": "Apple Magic Keyboard",
+    "variantName": "Apple Magic Keyboard - Magyar",
+    "description": "Az Apple Magic Keyboard egy elegáns és vezeték nélküli billentyűzet, amelyet az Apple kifejezetten a Mac számítógépekhez tervezett. A Magic Keyboard vékony és könnyű, mégis tartós kialakítású, és nagyszerű tapintást biztosít a billentyűzet különböző funkcióihoz. Az új modell magában foglalja a Touch ID ujjlenyomat-olvasót, amely lehetővé teszi az azonnali bejelentkezést és a biztonságos vásárlásokat. Az automatikus párosítás és az akkumulátor élettartamának hosszabbítása miatt az Apple Magic Keyboard egy könnyen használható és kényelmes billentyűzet, amely ideális választás lehet mindenki számára, aki egy minőségi és praktikus kiegészítőt keres az Apple számítógépeihez.",
+    "price": 47900,
+    "categoryId": 1,
+    "images": ["https://images.unsplash.com/photo-1493878777218-cf22a808450c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80"],
+    "attributes": {
+        "Nyelv": "Magyar"
+    }
+  },
+  "5": {
+    "slug": "iphone-x",
+    "productName": "Apple iPhone X",
+    "variantName": "Apple iPhone X - Fekete",
+    "description": "Az Apple iPhone X az Apple legújabb okostelefonja volt a bemutatása idején. Ez a készülék egy teljesen új kialakítással rendelkezik, amely magában foglalja az első iPhone-on megjelent Home gomb nélküli kijelzőt. Az iPhone X kiváló minőségű OLED kijelzőt és Face ID technológiát kínál, amely lehetővé teszi az azonnali feloldást, és biztonságosabbá teszi az okostelefont. Az A11 Bionic chipnek köszönhetően a készülék kiemelkedő sebességet és hatékonyságot kínál, és az iOS rendszer kényelmes és könnyen használható felületet biztosít. Az iPhone X emellett tartalmazza az Apple újításait, mint például az Animoji és az AR (kiterjesztett valóság) technológiát, amelyek még élvezetesebbé teszik a használatát. Az Apple iPhone X egy fantasztikus választás lehet mindenki számára, aki egy magas színvonalú és innovatív okostelefont keres.",
+    "price": 188000,
+    "categoryId": 1,
+    "images": ["https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"],
+    "attributes": {
+        "Tárhley": "64 GB",
+        "Szín": "Fekete"
+    }
+  },
+  "6": {
+    "slug": "xbox-series-x-series-s-vezetek-nelkuli-kontroller",
+    "productName": "Microsoft Xbox Series X/Series S vezeték nélküli kontroller",
+    "variantName": "Microsoft Xbox Series X/Series S vezeték nélküli kontroller - Fehér",
+    "description": "Az Microsoft Xbox Series X/Series S vezeték nélküli kontroller az Xbox új generációs konzoljainak kiegészítője. Ez a kontroller ergonomikus kialakítású, és tartalmazza a korábbi Xbox kontrollerek legjobb funkcióit, például az impulzus-visszajelzést és a precíziós analógkarokat. Az új kontroller tartalmazza a Share gombot, amely lehetővé teszi a játékok rögzítését és megosztását, valamint az újra tervezett D-padot, amely könnyebbé teszi a pontos irányítást. A vezeték nélküli kapcsolatot az Xbox konzolokkal és a Windows 10-es számítógépekkel is biztosítja. A Microsoft Xbox Series X/Series S vezeték nélküli kontroller egy nagyszerű választás lehet mindenki számára, aki egy kényelmes, megbízható és nagyszerű teljesítményű kontrollert keres a játékok élvezetesebbé tételéhez.",
+    "price": 25650,
+    "categoryId": 4,
+    "images": ["https://images.unsplash.com/photo-1605901058027-ebdb31733cbf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"],
+    "attributes": {
+        "Szín": "Fehér"
+    }
+  },
+  "7": {
+    "slug": "apple-airtag",
+    "productName": "Apple AirTag",
+    "variantName": "Apple AirTag - 1 db",
+    "description": "Az Apple AirTag egy apró méretű, Bluetooth-alapú helymeghatározó eszköz, amely lehetővé teszi a felhasználók számára, hogy könnyedén megtalálják elveszett tárgyaikat. Az AirTag a Find My alkalmazással együtt működik, amely segít megtalálni az elveszett vagy ellopott tárgyakat. Az AirTag kerek, rozsdamentes acél borítással rendelkezik, és egy egyszerűen cserélhető CR2032 gombelemet használ. Az AirTag-készülék vízálló és tartós kivitelű, és az Apple magánéleti védelmi szolgáltatásai biztosítják, hogy a helymeghatározó eszközök a felhasználói adatokat biztonságban és privát módon kezeljék. Az Apple AirTag egy praktikus és hatékony eszköz lehet mindenki számára, aki gyakran elveszíti vagy elfelejti a kulcsait, táskáját vagy más tárgyait.",
+    "price": 14490,
+    "categoryId": 1,
+    "images": ["https://images.unsplash.com/photo-1624204733108-fceb504d1e1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2831&q=80"],
+    "attributes": {
+        "Szín": "Fehér",
+        "Kiszerelés": "1db / csomag"
+    }
+  }
+}

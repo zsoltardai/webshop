@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {PrismaClient} from '@prisma/client';
+import {client} from '@webshop/prisma/client';
 
 import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
 
@@ -8,8 +8,6 @@ import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
 type ResponsePayload = any;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
-
-  const client: PrismaClient = new PrismaClient();
 
   switch (req.method) {
 
@@ -56,6 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
           },
         });
       } catch (error: any) {
+        console.log(error.message);
         res.status(500).send('Failed to connect to the databae, please try again later!');
         return;
       }

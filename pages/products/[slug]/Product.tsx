@@ -1,53 +1,35 @@
-import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
+import React, {useState} from 'react';
 
-import {useProduct, useAuth} from '@webshop/hooks';
+import {useAuth} from '@webshop/hooks';
 
-import {Card, Text, Flex, Button, ActivityIndicator, If} from '@webshop/components';
+import {Card, Text, Flex, Button, If} from '@webshop/components';
 
 import Attributes from './components/Attributes';
 import Variants from './components/Variants';
 
 import currencyFormatter from '@webshop/helpers/currencyFormatter';
 
-import type {Variant} from '@webshop/models';
+import type {Variant, Product as ProductType} from '@webshop/models';
+import type {ParsedUrlQuery} from 'querystring';
 
 import colors from '@webshop/constants/colors';
 
 import styles from './Product.module.css';
 
 
-const Product: React.FC = () => {
+export interface Params extends ParsedUrlQuery {slug: string};
 
-  const router = useRouter();
+export type Props = {product: ProductType};
+
+const Product: React.FC<Props> = ({product}) => {
 
   const {token} = useAuth();
 
-  const {product, loading, getProduct} = useProduct(router.query.slug as string, false);
-
-  const [variant, setVariant] = useState<Variant | undefined>();
-
-  const onClickVariant = (variant: Variant): void => setVariant(variant);
-
-  const fetchProduct = (): void => {
-    if (!router.isReady) return;
-    getProduct();
-  };
-
-  useEffect(fetchProduct, [router.isReady]);
-
-  useEffect(
-    () => {
-      setVariant(product?.variants[0]);
-    },
-    [
-      product,
-    ],
-  );
+  const [variant, setVariant] = useState<Variant | undefined>(product.variants?.[0]);
 
   const onClickAddCart: VoidFunction = () => {throw new Error('Not implemented error');};
 
-  if (loading) return <ActivityIndicator />;
+  const onSelect = (variant: Variant) => setVariant(variant);
 
   return (
     <div className={styles.container}>
@@ -80,7 +62,7 @@ const Product: React.FC = () => {
           </Text>
         </If>
 
-        <Variants variants={product.variants} current={variant} onSelect={onClickVariant} />
+        <Variants variants={product.variants} current={variant} onSelect={onSelect} />
 
         <Attributes attributes={variant?.attributes} />
       </Card>

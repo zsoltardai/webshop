@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {PrismaClient} from '@prisma/client';
+import {client} from '@webshop/prisma/client';
 
 import {verifyJWT} from '@webshop/helpers/verifyJWT';
 
@@ -8,8 +8,6 @@ import {verifyJWT} from '@webshop/helpers/verifyJWT';
 type ResponsePayload = any;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
-
-  const client: PrismaClient = new PrismaClient();
 
   const content = await verifyJWT(req, res);
 

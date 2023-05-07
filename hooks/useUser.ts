@@ -15,7 +15,7 @@ const useUser: UseUser = () => {
 
   const fetcher = async (): Promise<User> => getUser();
 
-  const {data: user, loading, error} = useApi<User>(fetcher, true);
+  const {data: user, loading, error} = useApi<User>({fetcher});
 
   return {
     user,

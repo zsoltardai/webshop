@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {PrismaClient} from '@prisma/client';
+import {client} from '@webshop/prisma/client';
 
 
 type ResponsePayload = any;
@@ -8,8 +8,6 @@ type ResponsePayload = any;
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
 
   const {id} = req.query;
-
-  const client: PrismaClient = new PrismaClient();
 
   switch (req.method) {
     case 'GET':

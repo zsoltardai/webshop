@@ -1,13 +1,15 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {PrismaClient, Prisma} from '@prisma/client';
+import {client} from '@webshop/prisma/client';
+
+import {Prisma} from '@prisma/client';
 
 import type {Product} from '@webshop/models';
 
 import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
 
 
-const productsQuery = {
+export const productsQuery = {
   select: {
     id: true,
     slug: true,
@@ -27,13 +29,11 @@ const productsQuery = {
   },
 };
 
-type GetProductsQueryResult = Prisma.ProductGetPayload<typeof productsQuery>;
+export type GetProductsQueryResult = Prisma.ProductGetPayload<typeof productsQuery>;
 
 type ResponsePayload = any;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<void> => {
-
-  const client: PrismaClient = new PrismaClient();
 
   switch (req.method) {
 
@@ -45,7 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     const {id} = content;
 
-    if (!await validateRequestBody(req, res, client)) return;
+    if (!await validateRequestBody(req, res)) return;
 
       const {slug, productName, variantName, images, description, price, categoryId, attributes = []} = req.body;
     
@@ -88,17 +88,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     case 'GET':
 
-      let products;
+      let products, max;
+
+      const {after, count} = req.query;
 
       try {
-        products = await client.product.findMany({...productsQuery});
+        products = await client.product.findMany({
+          skip: after ? Number(after) : undefined,
+          take: count ? Number(count) : undefined,
+          ...productsQuery
+        });
+
+        max = await client.product.count();
+
       } catch (error: any) {
 
         res.status(500).send('Failed to connect to the database, please try again later!');
         return;
       }
 
-      res.status(200).json(getProducts(products));
+      res.status(200).json({
+        products: getProducts(products),
+        meta: {
+          max,
+          after: Number(after),
+          count: Number(count),
+        },
+      });
       return;
 
     default: 
@@ -108,7 +124,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   };
 };
 
-const getProducts = (objects: GetProductsQueryResult[]): Product[] => {
+export const getProducts = (objects: GetProductsQueryResult[]): Product[] => {
   return objects.map(
     (object): Product => {
 
@@ -129,8 +145,8 @@ const getProducts = (objects: GetProductsQueryResult[]): Product[] => {
         slug: object.slug,
         name: object.name,
         description: object.description || '',
-        images,
         price,
+        images,
       };
     },
   );
@@ -138,7 +154,7 @@ const getProducts = (objects: GetProductsQueryResult[]): Product[] => {
 
 
 
-const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>, client: PrismaClient): Promise<boolean> => {
+const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<boolean> => {
 
   const {slug, productName, variantName, images, description, price, categoryId, attributes} = req.body;
 
