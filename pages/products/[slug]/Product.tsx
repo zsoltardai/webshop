@@ -14,7 +14,7 @@ import type {Variant} from '@webshop/models';
 
 import colors from '@webshop/constants/colors';
 
-import styles from '@webshop/styles/Product.module.css';
+import styles from './Product.module.css';
 
 
 const Product: React.FC = () => {
