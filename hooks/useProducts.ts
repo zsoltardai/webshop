@@ -22,8 +22,19 @@ const useProducts: UseProducts = ({prefetch, count}) => {
 
   const fetcher = async (): Promise<Product[]> => {
     if (!count) return (await getProducts()).products;
+
     const {products: _products, meta} = await getProducts({after: products?.length || 0, count});
-    setHasMore(meta.max ? meta.max <= (products?.length || 0) + count : false);
+
+    const {max} = meta;
+
+    setHasMore(
+      (): boolean => {
+        if (!max) return false;
+        const length: number = products?.length || 0;
+        return max <= length;
+      },
+    );
+
     return _products;
   };
 

@@ -22,7 +22,7 @@
     "variantName": "Microsoft Surface Book 3 Szürke - platinum",
     "description": "A Microsoft Surface Book 3 laptop egy magas teljesítményű, két az egyben eszköz, amely a Microsoft által kifejlesztett Surface termékcsalád tagja. Ez a laptop különleges kialakítással rendelkezik, amely lehetővé teszi, hogy a kijelzőt leválasztva táblagépként használhassuk, vagy pedig az egész eszközt hagyományos laptopként funkcionálva alkalmazhassuk. A Surface Book 3 laptop a legújabb technológiákat és alkatrészeket tartalmazza, beleértve a legújabb Intel processzorokat, akár 32 GB RAM-ot, akár 2 TB SSD-t és dedikált grafikus kártyát. A kijelzője érintőképernyős és tollal használható, és 13,5 vagy 15 hüvelykes méretben kapható. Összességében a Microsoft Surface Book 3 egy igazi teljesítményorientált eszköz, amely kiválóan alkalmas a produktivitásra, a kreatív munkára és az otthoni szórakozásra is.",
     "price": 746990,
-    "categoryId": 4,
+    "categoryId": 2,
     "images": ["https://images.unsplash.com/photo-1595245150809-ef9436aaded6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"],
     "attributes": {
         "Gyártó": "Microsoft",
@@ -37,7 +37,7 @@
     "variantName": "Xbox Series S",
     "description": "Az Xbox Series S az Xbox új generációs konzolja, amely az Xbox Series X kisebb testvére. Ez a konzol kisebb méretű, és kevesebb tárolókapacitással rendelkezik, de nagyobb ár-érték arányt kínál. Az Xbox Series S nagy teljesítményű, 120 fps 1440p játékélményt kínál, támogatja a DirectX Raytracing technológiát, és kompatibilis a korábbi Xbox játékokkal is. Emellett az Xbox Game Pass előfizetéssel több mint 100 játékhoz férhetünk hozzá, valamint lehetővé teszi az online játékot a barátokkal a Xbox Live Gold szolgáltatáson keresztül. Az Xbox Series S egy kiváló választás a játékok szerelmeseinek, akik szeretnének átélni egy magas színvonalú, immerszív játékélményt, kedvező áron.",
     "price": 117890,
-    "categoryId": 4,
+    "categoryId": 2,
     "images": ["https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2519&q=80"],
     "attributes": {
         "SSD": "512 GB"
@@ -88,7 +88,7 @@
     "variantName": "Microsoft Xbox Series X/Series S vezeték nélküli kontroller - Fehér",
     "description": "Az Microsoft Xbox Series X/Series S vezeték nélküli kontroller az Xbox új generációs konzoljainak kiegészítője. Ez a kontroller ergonomikus kialakítású, és tartalmazza a korábbi Xbox kontrollerek legjobb funkcióit, például az impulzus-visszajelzést és a precíziós analógkarokat. Az új kontroller tartalmazza a Share gombot, amely lehetővé teszi a játékok rögzítését és megosztását, valamint az újra tervezett D-padot, amely könnyebbé teszi a pontos irányítást. A vezeték nélküli kapcsolatot az Xbox konzolokkal és a Windows 10-es számítógépekkel is biztosítja. A Microsoft Xbox Series X/Series S vezeték nélküli kontroller egy nagyszerű választás lehet mindenki számára, aki egy kényelmes, megbízható és nagyszerű teljesítményű kontrollert keres a játékok élvezetesebbé tételéhez.",
     "price": 25650,
-    "categoryId": 4,
+    "categoryId": 2,
     "images": ["https://images.unsplash.com/photo-1605901058027-ebdb31733cbf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"],
     "attributes": {
         "Szín": "Fehér"
