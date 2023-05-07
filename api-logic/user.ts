@@ -1,14 +1,24 @@
 import client from './client';
 
-import {store} from '@webshop/redux/store';
+import type {User} from '@webshop/models';
 
 
 const endpoint: string = 'user';
 
-export const getUser = async (): Promise<any> => {
-  const token: string | undefined = store.getState().auth.token;
-  client.setHeader('authorization', `Bearer ${token}`);
+export const getUser = async (): Promise<User> => {
+
   const response = await client.get(endpoint);
+
   if (!response.ok) throw new Error(response.data as string);
-  return response.data;
+
+  return response.data as User;
+};
+
+
+export const updateUser = async (body: Partial<User>): Promise<User> => {
+  const response = await client.put(endpoint, body);
+
+  if (!response.ok) throw new Error(response.data as string);
+
+  return response.data as User;
 };
