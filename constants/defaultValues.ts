@@ -1,4 +1,5 @@
 import type {LoginParams, RegisterParams} from '@webshop/models/Auth';
+import type {User} from '@webshop/models';
 
 
 export const defaultLoginParams: LoginParams = {
@@ -12,4 +13,10 @@ export const defaultRegisterParams: RegisterParams = {
   email: '',
   password: '',
   confirmation: '',
+};
+
+export const defaultEditUser: User = {
+  firstName: '',
+  lastName: '',
+  email: '',
 };

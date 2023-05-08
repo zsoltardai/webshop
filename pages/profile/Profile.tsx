@@ -1,4 +1,5 @@
 import React from 'react';
+import {useRouter} from 'next/router';
 
 import {ActivityIndicator, Link, Flex} from '@webshop/components';
 
@@ -13,11 +14,13 @@ import {Card, Text} from '@webshop/components';
 
 const Profile: React.FC = () => {
 
+  const {push} = useRouter();
+
   const {requireAuth, logout} = useAuth();
 
   requireAuth(true);
 
-  const onClickEdit = (): void => {throw new Error('Not implemented onClickEdit()!')};
+  const onClickEdit = async (): Promise<boolean> => push('/profile/edit');
 
   const {user, loading} = useUser();
 
@@ -39,7 +42,12 @@ const Profile: React.FC = () => {
               {user?.email}
             </Text>
           </Flex>
-          <IoPencil color={colors.primary} onClick={onClickEdit} />
+          
+          <IoPencil
+            cursor="pointer"
+            color={colors.primary}
+            onClick={onClickEdit}
+          />
         </Flex>
       </Card>
 
