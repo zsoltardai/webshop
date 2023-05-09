@@ -1,2 +1,2 @@
-export {default} from './Profile';
+export {default} from './Edit';
 export {default as getServerSideProps} from './getServerSideProps';

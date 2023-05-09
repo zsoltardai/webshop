@@ -7,6 +7,7 @@ type UseApi = <T,>(props: {fetcher: (props?: {params?: Object, meta?: Meta}) => 
   data?: T;
   get: VoidFunction;
   refetch: (props?: {params?: Object; meta?: Meta}) => void;
+  mutate: (data: T) => void;
   loading: boolean;
   refetching: boolean;
   error?: string;
@@ -49,6 +50,8 @@ const useApi: UseApi = ({fetcher, prefetch = undefined}) => {
     setRefetching(false);
   };
 
+  const mutateHandler = (data: any) => setData(data);
+
   const initHandler = async (): Promise<void> => {
     setLoading(true);
 
@@ -69,6 +72,7 @@ const useApi: UseApi = ({fetcher, prefetch = undefined}) => {
     data,
     get: getHandler,
     refetch: refetchHandler,
+    mutate: mutateHandler,
     loading,
     refetching,
     error,

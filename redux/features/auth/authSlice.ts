@@ -1,5 +1,15 @@
+import Router from 'next/router'
+
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+
 import {login, register} from './actions';
+
+import {REHYDRATE} from 'redux-persist';
+
+import type {RootState} from '@webshop/redux/store';
+import client from '@webshop/api-logic/client';
+
+import {removeCookies} from 'cookies-next';
 
 
 export type AuthState = {
@@ -23,11 +33,32 @@ export const authSlice = createSlice({
     logout: (state: AuthState): void => {
       state.loading = true;
       state.token = undefined;
+      removeCookies('auth-token');
+      Router.replace('/login');
       state.loading = false;
     },
   },
 
   extraReducers: builder => {
+
+    // @ts-ignore
+    builder.addCase(
+      REHYDRATE,
+      (_, {payload}: PayloadAction<RootState>) => {
+        if (!payload) return;
+        
+        const {auth} = payload;
+
+        if (!auth) return;
+
+        const {token} = auth;
+
+        client.setHeader(
+          'Authorization',
+          `Bearer ${token}`,
+        );
+      },
+    );
 
     builder.addCase(
       login.pending,
