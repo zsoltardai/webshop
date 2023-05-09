@@ -16,9 +16,7 @@ const Profile: React.FC = () => {
 
   const {push} = useRouter();
 
-  const {requireAuth, logout} = useAuth();
-
-  requireAuth(true);
+  const {logout} = useAuth();
 
   const onClickEdit = async (): Promise<boolean> => push('/profile/edit');
 

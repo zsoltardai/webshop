@@ -47,7 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
   const token: string = sign({id, admin});
 
-  res.status(200).send(token);
+  res.status(200).setHeader('Set-Cookie', `auth-token=${token};path=/;`).send(token);
 };
 
 

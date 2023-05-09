@@ -12,7 +12,7 @@ import {defaultEditUser} from '@webshop/constants/defaultValues';
 
 import {editUserSchema} from '@webshop/schemas';
 
-import {useUser} from '@webshop/hooks';
+import {useAuth, useUser} from '@webshop/hooks';
 
 
 type Props = {};
@@ -99,5 +99,7 @@ const Edit: React.FC<Props> = () => {
     </Flex>
   );
 };
+
+
 
 export default Edit;
