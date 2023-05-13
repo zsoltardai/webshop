@@ -2,7 +2,9 @@ import React from 'react';
 
 import {Flex, Button} from '@webshop/components';
 
-import {CartItemCard, Header, PaymentSummary} from './components';
+import {default as Header} from './components/Header';
+import {default as CartItemCard} from './components/CartItemCard';
+import {default as PaymentSummary} from './components/PaymentSummary';
 
 import {useCart, useWindow} from '@webshop/hooks';
 
