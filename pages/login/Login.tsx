@@ -20,9 +20,7 @@ const Login: React.FC = () => {
   
   const {replace} = useRouter();
 
-  const {login, loading, requireAuth} = useAuth();
-
-  requireAuth(false);
+  const {login, loading} = useAuth();
 
   const form = useForm<LoginParams>({
     defaultValues: defaultLoginParams,
@@ -39,7 +37,7 @@ const Login: React.FC = () => {
 
     if (!success) return;
 
-    replace('/');
+    replace('products');
   };
 
   return (

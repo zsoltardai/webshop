@@ -7,6 +7,7 @@ import {Prisma} from '@prisma/client';
 import type {Product} from '@webshop/models';
 
 import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
+import { getVariant } from '@webshop/api-logic/variants';
 
 
 export const productsQuery = {
@@ -17,6 +18,7 @@ export const productsQuery = {
     description: true,
     variants: {
       select: {
+        id: true,
         name: true,
         price: true,
         images: {
@@ -135,16 +137,16 @@ export const getProducts = (objects: GetProductsQueryResult[]): Product[] => {
       object.variants.forEach(
         (variant): void => {
           variant.images.map(
-            (image) => images.push(image.url),
+            ({url}) => images.push(url),
           );
         },
       );
 
       return {
-        id: object.id,
+        id: object.variants?.[0].id || object.id,
         slug: object.slug,
         name: object.name,
-        description: object.description || '',
+        description: object.description,
         price,
         images,
       };

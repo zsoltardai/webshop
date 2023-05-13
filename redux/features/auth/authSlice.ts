@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import Router from 'next/router';
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
@@ -9,8 +9,7 @@ import {REHYDRATE} from 'redux-persist';
 import type {RootState} from '@webshop/redux/store';
 import client from '@webshop/api-logic/client';
 
-import {removeCookies} from 'cookies-next';
-
+import {deleteCookie} from 'cookies-next';
 
 export type AuthState = {
   token?: string;
@@ -30,21 +29,18 @@ export const authSlice = createSlice({
   initialState,
 
   reducers: {
-    logout: (state: AuthState): void => {
-      state.loading = true;
+    logout: (state: AuthState) => {
       state.token = undefined;
-      removeCookies('auth-token');
-      Router.replace('/login');
+      deleteCookie('auth-token');
       state.loading = false;
+      Router.replace('/products');
     },
   },
 
   extraReducers: builder => {
 
     // @ts-ignore
-    builder.addCase(
-      REHYDRATE,
-      (_, {payload}: PayloadAction<RootState>) => {
+    builder.addCase(REHYDRATE, (_, {payload}: PayloadAction<RootState>) => {
         if (!payload) return;
         
         const {auth} = payload;
@@ -53,57 +49,32 @@ export const authSlice = createSlice({
 
         const {token} = auth;
 
-        client.setHeader(
-          'Authorization',
-          `Bearer ${token}`,
-        );
+        client.setHeader('Authorization', `Bearer ${token}`);
       },
     );
 
-    builder.addCase(
-      login.pending,
-      (state: AuthState): void => {
-        state.loading = true;
-      },
-    );
+    builder.addCase(login.pending, (state) => {state.loading = true});
 
-    builder.addCase(
-      login.fulfilled,
-      (state: AuthState, {payload}: PayloadAction<string>): void => {
-        state.token = payload;
-        state.loading = false;
-        state.error = undefined;
-      },
-    );
+    builder.addCase(login.fulfilled, (state: AuthState, {payload}: PayloadAction<string>): void => {
+      state.token = payload;
+      state.loading = false;
+      state.error = undefined;
+    });
 
-    builder.addCase(
-      login.rejected,
-      (state: AuthState, {payload}: PayloadAction<any>): void => {
-        state.loading = false;
-        state.error = payload;
-      },
-    );
+    builder.addCase(login.rejected, (state: AuthState, {payload}: PayloadAction<any>): void => {
+      state.loading = false;
+      state.error = payload;
+    });
 
-    builder.addCase(
-      register.pending,
-      (state: AuthState): void => {
-        state.loading = true;
-      }
-    );
+    builder.addCase(register.pending, (state) => {state.loading = true});
 
-    builder.addCase(
-      register.fulfilled,
-      (state: AuthState): void => {
-        state.loading = false;
-      },
-    );
+    builder.addCase(register.fulfilled, (state: AuthState): void => {
+      state.loading = false;
+    });
 
-    builder.addCase(
-      register.rejected,
-      (state: AuthState): void => {
-        state.loading = false;
-      },
-    );
+    builder.addCase(register.rejected, (state: AuthState): void => {
+      state.loading = false;
+    });
   },
 });
 

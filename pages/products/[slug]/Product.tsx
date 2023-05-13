@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {useAuth} from '@webshop/hooks';
+import {useAuth, useCart} from '@webshop/hooks';
 
 import {Card, Text, Flex, Button, If} from '@webshop/components';
 
@@ -25,9 +25,11 @@ const Product: React.FC<Props> = ({product}) => {
 
   const {token} = useAuth();
 
+  const {add} = useCart();
+
   const [variant, setVariant] = useState<Variant | undefined>(product.variants?.[0]);
 
-  const onClickAddCart: VoidFunction = () => {throw new Error('Not implemented error');};
+  const onClickAddCart = async (variant?: Variant): Promise<boolean> => variant ? add(variant, 1) : false;
 
   const onSelect = (variant: Variant) => setVariant(variant);
 
@@ -54,7 +56,7 @@ const Product: React.FC<Props> = ({product}) => {
           </Text>
         </Flex>
 
-        <Button title="Kosárba" disabled={!token} onClick={onClickAddCart} marginBottom={24}/>
+        <Button title="Kosárba" disabled={!token} onClick={onClickAddCart.bind(this, variant)} marginBottom={24}/>
 
         <If condition={!token}>
           <Text variant='small' color={colors.error}>

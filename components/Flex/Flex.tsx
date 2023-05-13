@@ -1,24 +1,19 @@
-import React, {CSSProperties} from 'react';
+import React, {CSSProperties, MouseEventHandler} from 'react';
 
 
 type Props = CSSProperties & {
   children: any;
-  flexDirection?: CSSProperties['flexDirection'];
-  justifyContent?: CSSProperties['justifyContent'];
   className?: HTMLDivElement['className'];
+  onClick?: MouseEventHandler<HTMLDivElement>;
 };
 
 const Flex: React.FC<Props> = (props) => {
-  const {children, className, flexDirection = 'row', justifyContent = 'flex-start', ...style} = props;
+  const {children, className, onClick, ...style} = props;
   return (
     <div
       className={className}
-      style={{
-        display: 'flex',
-        flexDirection,
-        justifyContent,
-        ...style,
-      }}
+      onClick={onClick}
+      style={{display: 'flex', ...style}}
     >
       {children}
     </div>
