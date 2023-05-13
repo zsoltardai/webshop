@@ -1,10 +1,12 @@
-{
-  "0": {
+[
+  {
     "name": "Apple",
+    "slug": "apple",
     "description": "Az Apple világszerte elismert technológiai cég, amely az innováció és a design vezető szereplőjeként ismert. Az Apple termékek olyan kifinomult designnal rendelkeznek, amelyek magukba foglalják az egyedülálló hardver- és szoftvertervezési megközelítést, valamint a letisztult és minimalista stílust. Az Apple termékek tartósak és hatékonyak, és az iOS és macOS operációs rendszereikkel lehetővé teszik a felhasználók számára, hogy egyszerűen és intuitív módon kommunikáljanak, dolgozzanak és szórakozzanak. Az Apple azon dolgozik, hogy az emberek életét jobbá tegye azáltal, hogy egyszerűbbé teszi a mindennapi tevékenységeket, és lehetővé teszi az emberek számára, hogy közelebb kerüljenek egymáshoz."
   },
-  "1": {
+  {
     "name": "Microsoft",
+    "slug": "microsoft",
     "description": "A Microsoft egy amerikai székhelyű vállalat, amely széles körű számítástechnikai termékeket és szolgáltatásokat kínál a felhasználók számára. Az általa fejlesztett operációs rendszerek, például a Windows, a Microsoft Office szoftvercsomag, a Microsoft Surface eszközök, a Microsoft Teams kommunikációs platform és az Xbox játékkonzolok világszerte ismertek és elismertek. A Microsoft a számítástechnika terén úttörőnek számít, és folyamatosan azon dolgozik, hogy megkönnyítse a mindennapi életünket és hatékonyabbá tegye a munkánkat."
   }
-}
+]

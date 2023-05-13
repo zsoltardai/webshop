@@ -41,7 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
       const {id} = content;
 
-      const {name, description} = req.body;
+      const {name, slug, description} = req.body;
 
       let category;
 
@@ -49,12 +49,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
         category = await client.category.create({
           data: {
             name,
+            slug,
             description,
             createdById: Number(id),
           },
         });
       } catch (error: any) {
-        console.log(error.message);
         res.status(500).send('Failed to connect to the databae, please try again later!');
         return;
       }
@@ -72,10 +72,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
 const validateRequestBody = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload>): Promise<boolean> => {
 
-  const {name, description} = req.body;
+  const {name, slug, description} = req.body;
 
   if (!name || name.trim() === '') {
     res.status(400).send('You did not provide a valid name attribute!');
+    return false;
+  }
+
+  if (!slug || slug.trim() === '') {
+    res.status(400).send('You did not provide a valid slug attribute!');
+    return false;
+  }
+
+  const category = await client.category.findFirst({where: {slug}});
+
+  if (!!category) {
+    res.status(409).send('A category already exists with the provided slug!!');
     return false;
   }
 

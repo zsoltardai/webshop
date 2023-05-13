@@ -1,0 +1,5 @@
+.row {
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 15px;
+}

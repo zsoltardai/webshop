@@ -7,7 +7,7 @@ import {client} from '@webshop/prisma/client';
 import type {Variant} from '@webshop/models';
 
 
-const variantQuery = {
+export const variantQuery = {
   select: {
     id: true,
     name: true,
@@ -16,7 +16,6 @@ const variantQuery = {
     product: {
       select: {
         slug: true,
-        description: true,
       },
     },
     images: {
@@ -27,7 +26,7 @@ const variantQuery = {
   },
 };
 
-type GetVariantQueryResult = Prisma.VariantGetPayload<typeof variantQuery>;
+export type GetVariantQueryResult = Prisma.VariantGetPayload<typeof variantQuery>;
 
 type ResponsePayload = any;
 
@@ -67,7 +66,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   };
 };
 
-const getVariant = (object: GetVariantQueryResult): Variant => {
+export const getVariant = (object: GetVariantQueryResult): Variant => {
 
   const images: string[] = object.images.map(
     (image) => image.url,
@@ -75,7 +74,6 @@ const getVariant = (object: GetVariantQueryResult): Variant => {
 
   return {
     id: object.id,
-    description: object.product.description,
     slug: object.product.slug,
     name: object.name,
     price: Number(object.price),

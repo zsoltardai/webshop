@@ -17,11 +17,9 @@ import {defaultRegisterParams} from '@webshop/constants/defaultValues';
 
 const Register: React.FC = () => {
 
-  const {replace} = useRouter();
+  const {push} = useRouter();
 
-  const {register, requireAuth} = useAuth();
-
-  requireAuth(false);
+  const {register} = useAuth();
 
   const form = useForm<RegisterParams>({
     resolver: yupResolver(registerSchema),
@@ -50,7 +48,7 @@ const Register: React.FC = () => {
 
     if (!success) return;
 
-    replace('/login');
+    push('/login');
   };
 
   return (
