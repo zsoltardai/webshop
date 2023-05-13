@@ -8,17 +8,12 @@ type Props = CSSProperties & {
 };
 
 const Flex: React.FC<Props> = (props) => {
-  const {children, className, flexDirection = 'row', justifyContent = 'flex-start', onClick, ...style} = props;
+  const {children, className, onClick, ...style} = props;
   return (
     <div
       className={className}
       onClick={onClick}
-      style={{
-        display: 'flex',
-        flexDirection,
-        justifyContent,
-        ...style,
-      }}
+      style={{display: 'flex', ...style}}
     >
       {children}
     </div>
