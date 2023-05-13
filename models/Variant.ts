@@ -1,7 +1,6 @@
 type Variant = {
   id: number;
   slug: string;
-  description: string;
   name: string;
   price: number;
   images?: string[];
