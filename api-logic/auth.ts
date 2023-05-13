@@ -5,7 +5,7 @@ import type {LoginParams, RegisterParams} from '@webshop/models/Auth';
 
 const endpoint: string = 'auth';
 
-const login = async (params: LoginParams): Promise<any> => {
+const login = async (params: LoginParams): Promise<string> => {
   const response = await client.post<string>(`${endpoint}/login`, params);
 
   if (!response.ok) throw new Error(response.data as string);
@@ -14,15 +14,15 @@ const login = async (params: LoginParams): Promise<any> => {
 
   client.setHeader('Authorization', token);
 
-  return response.data;
+  return response.data as string;
 };
 
-const register = async (params: RegisterParams)  => {
+const register = async (params: RegisterParams): Promise<boolean>  => {
   const response = await client.post(`${endpoint}/register`, params);
   
   if (!response.ok) throw new Error(response.data as string);
   
-  return response.data;
+  return true;
 };
 
 export default {login, register};

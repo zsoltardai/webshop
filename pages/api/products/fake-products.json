@@ -1,5 +1,5 @@
-{
-  "0": {
+[
+  {
     "slug": "apple-macbook-air-m1",
     "productName": "Apple MacBook Air M1",
     "variantName": "Macbook Air 13“ M1 Silver Magyar 2020",
@@ -16,7 +16,7 @@
         "Operációs rendszer": "macOS Big Sur"
     }
   },
-  "1": {
+  {
     "slug": "microsoft-surface-book-3",
     "productName": "Microsoft Surface Book 3",
     "variantName": "Microsoft Surface Book 3 Szürke - platinum",
@@ -31,7 +31,7 @@
         "SSD": "256 GB"
     }
   },
-  "2": {
+  {
     "slug": "xbox-one",
     "productName": "Xbox One",
     "variantName": "Xbox Series S",
@@ -43,7 +43,7 @@
         "SSD": "512 GB"
     }
   },
-  "3": {
+  {
     "slug": "mac-mini-m2",
     "productName": "Mac mini M2",
     "variantName": "Mac mini M2 - Ezüst",
@@ -57,7 +57,7 @@
         "Szín": "Ezüst"
     }
   },
-  "4": {
+  {
     "slug": "apple-magic-keyboard",
     "productName": "Apple Magic Keyboard",
     "variantName": "Apple Magic Keyboard - Magyar",
@@ -69,7 +69,7 @@
         "Nyelv": "Magyar"
     }
   },
-  "5": {
+  {
     "slug": "iphone-x",
     "productName": "Apple iPhone X",
     "variantName": "Apple iPhone X - Fekete",
@@ -82,7 +82,7 @@
         "Szín": "Fekete"
     }
   },
-  "6": {
+  {
     "slug": "xbox-series-x-series-s-vezetek-nelkuli-kontroller",
     "productName": "Microsoft Xbox Series X/Series S vezeték nélküli kontroller",
     "variantName": "Microsoft Xbox Series X/Series S vezeték nélküli kontroller - Fehér",
@@ -94,7 +94,7 @@
         "Szín": "Fehér"
     }
   },
-  "7": {
+  {
     "slug": "apple-airtag",
     "productName": "Apple AirTag",
     "variantName": "Apple AirTag - 1 db",
@@ -107,4 +107,4 @@
         "Kiszerelés": "1db / csomag"
     }
   }
-}
+]

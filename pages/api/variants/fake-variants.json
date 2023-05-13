@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Macbook Air 13“ M1 Rosegold Magyar 2020",
+    "price": 419990,
+    "images": ["https://images.unsplash.com/photo-1605784401368-5af1d9d6c4dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80"],
+    "attributes": {
+        "Szín": "Rosegold",
+        "RAM": "8 GB",
+        "Processzor": "Apple M1 chip 8 core CPU",
+        "Tárhely": "256GB",
+        "Videókártya": "Apple 7 core GPU",
+        "Operációs rendszer": "macOS Big Sur"
+    }
+  }
+]

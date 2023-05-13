@@ -37,17 +37,21 @@ const ProductCard: React.FC<Props> = (props) => {
   const {isMobile} = useWindow();
 
   return (
-    <Card className={styles.container} margin={10} onClick={onClick} flex={1}>
-      <img style={{objectFit: 'cover', borderRadius: 5, marginBottom: 12, width: "100%", height: 200}} src={images?.[0]} alt="" />
-      <Text variant='h3' height={isMobile ? 30 : 50} marginBottom={12}>
-        {textShortener(name, 30)}
-      </Text>
-      <Text marginBottom={12} height={isMobile ? 50 : 80}>
-        {textShortener(description)}
-      </Text>
-      <Text marginBottom={12} color={colors.primary}>
-        {currencyFormatter(price)}
-      </Text>
+    <Card className={styles.container} margin={10} flex={1}>
+
+      <Flex flexDirection='column' onClick={onClick}>
+        <img style={{objectFit: 'cover', borderRadius: 5, marginBottom: 12, width: "100%", height: 200}} src={images?.[0]} alt="" />
+        <Text variant='h3' height={isMobile ? 30 : 50} marginBottom={12}>
+          {textShortener(name, 30)}
+        </Text>
+        <Text marginBottom={12} height={isMobile ? 50 : 80}>
+          {textShortener(description)}
+        </Text>
+        <Text marginBottom={12} color={colors.primary}>
+          {currencyFormatter(price)}
+        </Text>
+      </Flex>
+
       <Button
         variant='primary'
         title="Kosárba"
