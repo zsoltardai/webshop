@@ -4,7 +4,10 @@ import {verifyJWT} from '@webshop/helpers/verifyJWT';
 
 import {client} from '@webshop/prisma/client';
 
-import {cartItemQuery} from '@webshop/pages/api/cart';
+import {cartItemQuery, GetCartItemQueryResult} from '@webshop/pages/api/cart';
+import {getVariant} from '@webshop/pages/api/variants/[id]';
+
+import type {CartItem} from '@webshop/models/Cart';
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<any>): Promise<void> => {
@@ -41,7 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>): Promise<
         return;
       }
 
-      res.status(200).json(cartItem);
+      res.status(200).json(getCartItem(cartItem));
       return;
     }
 
@@ -71,7 +74,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>): Promise<
         return;
       }
 
-      res.status(202).json(cartItem);
+      res.status(202).json(getCartItem(cartItem));
       return;
     }
 
@@ -107,6 +110,16 @@ const validatePutRequestBody = async (req: NextApiRequest, res: NextApiResponse<
   }
 
   return true;
+};
+
+export const getCartItem = (object: GetCartItemQueryResult): CartItem => {
+  const variant = getVariant(object.variant);
+
+  return {
+    id: object.id,
+    quantity: object.quantity,
+    variant: variant,
+  };
 };
 
 export default handler;

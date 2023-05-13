@@ -2,9 +2,14 @@ import {NextApiRequest, NextApiResponse} from 'next';
 
 import {verifyJWT} from '@webshop/helpers/verifyJWT';
 
+import {Prisma} from '@prisma/client';
+
 import {client} from '@webshop/prisma/client';
 
-import {variantQuery} from '@webshop/pages/api/variants/[id]';
+import {getVariant, variantQuery} from '@webshop/pages/api/variants/[id]';
+import {getCartItem} from '@webshop/pages/api/cart/[id]';
+
+import type {CartItem} from '@webshop/models/Cart';
 
 
 export const cartItemQuery = {
@@ -16,6 +21,8 @@ export const cartItemQuery = {
     },
   },
 };
+
+export type GetCartItemQueryResult = Prisma.CartItemGetPayload<typeof cartItemQuery>;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<any>): Promise<void> => {
   
@@ -34,7 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>): Promise<
         ...cartItemQuery,
       });
 
-      res.status(200).json(cartItems);
+      res.status(200).json(getCartItems(cartItems));
       return;
     }
 
@@ -77,7 +84,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>): Promise<
         return;
       }
 
-      res.status(201).json(cartItem);
+      res.status(201).json(getCartItem(cartItem));
       return;
     }
 
@@ -109,6 +116,8 @@ const validatePostRequestBody = async (req: NextApiRequest, res: NextApiResponse
 
   return true;
 };
+
+const getCartItems = (objects: GetCartItemQueryResult[]): CartItem[] => objects.map(object => getCartItem(object));
 
 
 export default handler;

@@ -113,7 +113,6 @@ const getVariants = (objects: GetVariantsQueryResult[]): Variant[] => {
 
       return {
         id: object.id,
-        description: object.product.description,
         slug: object.product.slug, 
         name: object.name,
         price: Number(object.price),

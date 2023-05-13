@@ -26,7 +26,7 @@ export const variantQuery = {
   },
 };
 
-type GetVariantQueryResult = Prisma.VariantGetPayload<typeof variantQuery>;
+export type GetVariantQueryResult = Prisma.VariantGetPayload<typeof variantQuery>;
 
 type ResponsePayload = any;
 
@@ -66,7 +66,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   };
 };
 
-const getVariant = (object: GetVariantQueryResult): Variant => {
+export const getVariant = (object: GetVariantQueryResult): Variant => {
 
   const images: string[] = object.images.map(
     (image) => image.url,
