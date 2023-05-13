@@ -4,8 +4,7 @@ import {useRouter} from 'next/router';
 
 import {Button, Link, Text} from '@webshop/components'
 
-import {FaTimes} from 'react-icons/fa';
-import {IoMenu} from 'react-icons/io5';
+import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 
 import {useAuth, useWindow} from '@webshop/hooks';
 
@@ -52,9 +51,9 @@ const Header: React.FC = () => {
       <Warning />
       <div className={styles.header}>
           {isMobile && (
-            <div className={styles['header-mobile']} onClick={toggleDropdown}>
+            <div className={styles['header-mobile']}>
               <Text variant='h3' color={colors.primary}>Webshop</Text>
-              {!isDropdownOpen ? <IoMenu size={24} /> : <FaTimes size={24} />}
+              {!isDropdownOpen ? <AiOutlineMenu size={24} onClick={toggleDropdown} /> : <AiOutlineClose size={24} onClick={toggleDropdown} />}
             </div>
           )}
 
@@ -67,6 +66,7 @@ const Header: React.FC = () => {
           <div className={styles['header-content']} >
             <Link uppercase title='Kezdőlap' href="/" />
             <Link uppercase title='Termékek' href="/products" />
+            <Link uppercase title='Kosár' href="/cart" />
           </div>
 
           <div className={styles['header-content']} style={{justifySelf: 'flex-end'}}>

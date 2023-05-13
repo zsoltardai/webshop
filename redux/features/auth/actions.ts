@@ -4,25 +4,29 @@ import authApi from '@webshop/api-logic/auth';
 
 import type {LoginParams, RegisterParams} from '@webshop/models/Auth';
 
+import {restore as restoreCart} from '@webshop/redux/features/cart';
 
-export const login = createAsyncThunk(
+
+export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}>(
   'auth/login',
-  async (params: LoginParams, thunkAPI) => {
+  async (params, {rejectWithValue, dispatch}) => {
     try {
-      return await authApi.login(params);
+      const token = await authApi.login(params);
+      dispatch(restoreCart(token));
+      return token;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   },
 );
 
-export const register = createAsyncThunk(
+export const register = createAsyncThunk<boolean, RegisterParams, {rejectValue: string}>(
   'auth/register',
-  async (params: RegisterParams, thunkAPI) => {
+  async (params, {rejectWithValue}) => {
     try {
       return await authApi.register(params);
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   },
 );
