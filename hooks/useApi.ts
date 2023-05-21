@@ -54,7 +54,7 @@ const useApi: UseApi = ({fetcher, prefetch = undefined}) => {
 
   const initHandler = async (): Promise<void> => {
     setLoading(true);
-
+    
     await getHandler();
 
     setLoading(false);

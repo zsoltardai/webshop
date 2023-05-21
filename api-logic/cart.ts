@@ -6,9 +6,9 @@ import type {AddCartItemParams, CartItem, UpdateCartItemParams} from '@webshop/m
 const endpoint: string = 'cart';
 
 
-const getAll = async (token: string): Promise<CartItem[]> => {
+const get = async (token?: string): Promise<CartItem[]> => {
 
-  client.setHeader('Authorization', `Bearer ${token}`);
+  if (token) client.setHeader('Authorization', `Bearer ${token}`);
 
   const response = await client.get(endpoint);
 
@@ -55,4 +55,4 @@ const update = async (params: UpdateCartItemParams): Promise<CartItem> => {
   return response.data as CartItem;
 };
 
-export default {getAll, add, clear, remove, update};
+export default {get, add, clear, remove, update};

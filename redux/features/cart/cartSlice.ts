@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {add, remove, clear, update, restore} from './actions';
+import {add, remove, clear, update, get} from './actions';
 
 import type {CartItem} from '@webshop/models/Cart';
 
@@ -23,11 +23,7 @@ export const cartSlice = createSlice({
 
   initialState,
 
-  reducers: {
-    get: (state: CartState, {payload}: PayloadAction<{id: number}>) => {
-      const {id} = payload;
-    },
-  },
+  reducers: {},
 
   extraReducers: builder => {
 
@@ -102,22 +98,22 @@ export const cartSlice = createSlice({
 
     /* restoring cart items */
 
-    builder.addCase(restore.pending, (state) => {state.loading = true});
+    builder.addCase(get.pending, (state) => {state.loading = true});
 
-    builder.addCase(restore.fulfilled, (state: CartState, {payload}: PayloadAction<CartItem[]>) => {
+    builder.addCase(get.fulfilled, (state: CartState, {payload}: PayloadAction<CartItem[]>) => {
       state.items = payload;
       state.loading = false;
     });
 
-    builder.addCase(restore.rejected, (state: CartState, {payload}: PayloadAction<any>) => {
+    builder.addCase(get.rejected, (state: CartState, {payload}: PayloadAction<any>) => {
       state.error = payload;
       state.loading = false;
     });
   },
 });
 
-export const {get} = cartSlice.actions;
+export const {} = cartSlice.actions;
 
-export {add, remove, clear, restore, update};
+export {add, remove, clear, get, update};
 
 export default cartSlice.reducer;
