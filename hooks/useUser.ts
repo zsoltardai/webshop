@@ -1,8 +1,8 @@
-import {getUser, updateUser} from '@webshop/api-logic/user';
+import {useAppDispatch, useAppSelector} from '@webshop/redux/store';
+
+import {update, get} from '@webshop/redux/features/user';
 
 import type {User} from '@webshop/models';
-
-import useApi from './useApi';
 
 
 type UseUser = () => {
@@ -10,34 +10,34 @@ type UseUser = () => {
   update: (user: Partial<User>) => Promise<boolean>;
   loading: boolean;
   error?: string;
+  refetch: VoidFunction;
 };
 
 const useUser: UseUser = () => {
 
-  const fetcher = async (): Promise<User> => getUser();
+  const dispatch = useAppDispatch();
 
-  const {data: user, mutate, loading, error} = useApi<User>({fetcher});
+  const user: User | undefined = useAppSelector(state => state.user.user);
 
-  const updateHandler = async (body: Partial<User>): Promise<boolean> => {
+  const loading: boolean = useAppSelector(state => state.user.loading);
 
-    try {
+  const error: string | undefined = useAppSelector(state => state.user.error);
 
-      const updatedUser = await updateUser(body);
+  const getHandler = async () => dispatch(get());
 
-      mutate(updatedUser);
-
-      return true;
-    } catch (error: any) {
-      /* need to display error somehow 🤷🏽‍♂️ */
-      return false;
-    }
+  const updateHandler = async (user: Partial<User>) => {
+    return dispatch(update(user))
+    .unwrap()
+    .then(() => true)
+    .catch(() => false);
   };
 
   return {
     user,
-    update: updateHandler,
     loading,
     error,
+    update: updateHandler,
+    refetch: getHandler,
   };
 };
 

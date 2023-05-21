@@ -4,7 +4,8 @@ import authApi from '@webshop/api-logic/auth';
 
 import type {LoginParams, RegisterParams} from '@webshop/models/Auth';
 
-import {restore as restoreCart} from '@webshop/redux/features/cart';
+import {get as getCart} from '@webshop/redux/features/cart';
+import {get as getUser} from '@webshop/redux/features/user';
 
 
 export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}>(
@@ -12,7 +13,8 @@ export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}
   async (params, {rejectWithValue, dispatch}) => {
     try {
       const token = await authApi.login(params);
-      dispatch(restoreCart(token));
+      dispatch(getUser(token));
+      dispatch(getCart(token));
       return token;
     } catch (error: any) {
       return rejectWithValue(error.message);
