@@ -18,6 +18,7 @@
   align-items: center;
   flex: 1;
   background-color: var(--white);
+  z-index: 10;
 }
 
 .header-mobile {

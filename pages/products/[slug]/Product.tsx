@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
 
 import {useAuth, useCart} from '@webshop/hooks';
 
@@ -33,18 +35,29 @@ const Product: React.FC<Props> = ({product}) => {
 
   const onSelect = (variant: Variant) => setVariant(variant);
 
+  const image: string = variant?.images?.[0] || product.images[0];
+
   return (
-    <div className={styles.container}>
-      <Card objectFit='contain'>
-        <img className={styles.image} src={variant?.images?.[0]} alt="" />
-        {/*
-          <Card width={80}>
-            <img src="/images/empty.png" alt="" />
-          </Card>
-        */}
+    <Flex className={styles.container}>
+
+      <Head>
+        <title>Webshop - {product.name}</title>
+        <meta name="description" content={product.description} />
+      </Head>
+
+      <Card>
+        <div className={styles['image-container']}>
+          <Image
+            className={styles.image}
+            alt={product.name}
+            src={image}
+            priority
+            fill
+          />
+        </div>
       </Card>
 
-      <Card marginBottom={24}>
+      <Card>
         <Text variant='h1' marginBottom={12}>{variant?.name}</Text>
 
         <Text marginBottom={24}>{product.description}</Text>
@@ -68,7 +81,7 @@ const Product: React.FC<Props> = ({product}) => {
 
         <Attributes attributes={variant?.attributes} />
       </Card>
-    </div>
+    </Flex>
   );
 };
 

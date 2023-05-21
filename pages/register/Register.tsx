@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import {useRouter} from 'next/router';
 
 import {Button, Card, ControlledInput, Flex, Link, Text} from '@webshop/components';
@@ -53,6 +54,11 @@ const Register: React.FC = () => {
 
   return (
     <Flex flexDirection="column" alignItems='center'>
+
+      <Head>
+        <title>Webshop - Regisztráció</title>
+      </Head>
+
       <Card width={400} maxWidth="90vw">
         <Text variant="h2">Regisztáció</Text>
 

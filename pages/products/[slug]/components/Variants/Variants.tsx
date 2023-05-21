@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 import {Card, Flex} from '@webshop/components';
 
@@ -27,14 +28,17 @@ const Variants: React.FC<Props> = (props) => {
               width={80}
               marginLeft={index === 0 ? 0 : 10}
               marginRight={index === variants.length - 1 ? 0 : 10}
-              padding={2}
               onClick={onSelect.bind(this, productVariant)}
               selected={isSelected}
+              padding={2}
             >
-              <img
+              <Image
                 className={styles.image}
-                style={{borderRadius: 5}}
-                src={image} 
+                alt={productVariant.name}
+                width={75}
+                height={50}
+                src={image}
+                priority
               />
             </Card>
           );

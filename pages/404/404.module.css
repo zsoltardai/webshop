@@ -1,5 +1,6 @@
-.image {
+.image-container {
+  position: relative;
   width: 400px;
-  height: auto;
+  height: 200px;
   max-width: 90vw;
 }

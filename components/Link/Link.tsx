@@ -22,7 +22,7 @@ const Link: React.FC<Props> = (props) => {
   if (href) {
     return (
       <NextLink className={styles.link} href={href} style={{textDecoration: 'none'}}>
-        <Text color={color} uppercase={uppercase} {...style}>
+        <Text variant='bold' color={color} uppercase={uppercase} {...style}>
           {title}
         </Text>
       </NextLink>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import {useRouter} from 'next/router';
 
 import {ActivityIndicator, Button, Flex, Grid, If} from '@webshop/components';
@@ -27,6 +28,9 @@ const Products: React.FC<Props> = ({products: prefetch}) => {
 
   return (
     <>
+      <Head>
+        <title>Webshop - Termékek</title>
+      </Head>
       <Grid column={250}>
         {products?.map(
           (product: Product, index: number): JSX.Element => {

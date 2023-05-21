@@ -1,4 +1,5 @@
 import React, {MouseEventHandler} from 'react';
+import Image from 'next/image';
 
 import {Card, Text, Button, If, Flex} from '@webshop/components';
 
@@ -40,7 +41,18 @@ const ProductCard: React.FC<Props> = (props) => {
     <Card className={styles.container} margin={10} flex={1}>
 
       <Flex flexDirection='column' onClick={onClick}>
-        <img style={{objectFit: 'cover', borderRadius: 5, marginBottom: 12, width: "100%", height: 200}} src={images?.[0]} alt="" />
+        <div className={styles.image}>
+          <Image
+            fill
+            style={{objectFit: 'cover', borderRadius: 5}}
+            sizes='(max-width: 600px) 150px, (max-width: 1200px) 200px, 250px'
+            src={images?.[0]}
+            alt={name}
+            loader={({src, width, quality}) => `${src}?w=${width}&q=${quality}`}
+            priority
+            quality={80}
+          />
+        </div>
         <Text variant='h3' height={isMobile ? 30 : 50} marginBottom={12}>
           {textShortener(name, 30)}
         </Text>
