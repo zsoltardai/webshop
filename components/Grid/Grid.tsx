@@ -40,7 +40,10 @@ const Grid: React.FC<Props> = (props) => {
         observer.disconnect();
       };
     },
-    [],
+    [
+      ref,
+      column,
+    ],
   );
 
   if (!children) return <></>;

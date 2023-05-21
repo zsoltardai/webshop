@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import Head from 'next/head';
 import {useRouter} from 'next/router';
 
 import {Flex, Card, Text, ControlledInput, Button, ActivityIndicator} from '@webshop/components';
@@ -56,6 +57,7 @@ const Edit: React.FC<Props> = () => {
     },
     [
       user,
+      setValue,
     ],
   );
 
@@ -63,6 +65,11 @@ const Edit: React.FC<Props> = () => {
 
   return (
     <Flex flexDirection='column' alignItems='center' marginTop={12}>
+
+      <Head>
+        <title>Webshop - Profil szerkesztése</title>
+      </Head>
+
       <Card width={400} maxWidth="90vw">
 
         <Text variant="h2">

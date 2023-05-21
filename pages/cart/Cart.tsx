@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 
 import {Flex, Button} from '@webshop/components';
 
@@ -28,6 +29,10 @@ const Cart: React.FC = () => {
 
   return (
     <Flex flexDirection='column' alignSelf='center' width="100%">
+
+      <Head>
+        <title>Webshop - Kosár</title>
+      </Head>
     
       <Header showClearButton={items.length > 0} onClickClear={onClickClear} />
 
