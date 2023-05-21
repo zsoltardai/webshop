@@ -10,15 +10,15 @@ import ProductCard from './components/ProductCard';
 
 import type {Product} from '@webshop/models';
 
-type Props = {products: Product[]};
+type Props = {products: Product[], hasMore: boolean};
 
-const Products: React.FC<Props> = ({products: prefetch}) => {
+const Products: React.FC<Props> = ({products: prefetch, hasMore: more}) => {
 
   const {push} = useRouter();
 
   const {add} = useCart();
 
-  const {products, loading, refetch, refetching, hasMore} =  useProducts({count: 4, prefetch});
+  const {products, loading, refetch, refetching, hasMore} =  useProducts({count: 4, prefetch, more});
 
   const onClickHandler = (product: Product): Promise<boolean> => push(`/products/${product.slug}`);
 

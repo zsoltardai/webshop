@@ -6,7 +6,7 @@ import useApi from './useApi';
 import type {Product} from '@webshop/models';
 
 
-type UseProducts = (props: {prefetch?: Product[], count?: number}) => {
+type UseProducts = (props: {prefetch?: Product[], count?: number, more?: boolean}) => {
   products?: Product[];
   loading: boolean;
   getProducts: VoidFunction;
@@ -16,9 +16,9 @@ type UseProducts = (props: {prefetch?: Product[], count?: number}) => {
   refetching: boolean;
 };
 
-const useProducts: UseProducts = ({prefetch, count}) => {
+const useProducts: UseProducts = ({prefetch, count, more = true}) => {
   
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [hasMore, setHasMore] = useState<boolean>(more);
 
   const fetcher = async (): Promise<Product[]> => {
     if (!count) return (await getProducts()).products;
