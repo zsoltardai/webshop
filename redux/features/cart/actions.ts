@@ -5,11 +5,11 @@ import type {AddCartItemParams, CartItem, UpdateCartItemParams} from '@webshop/m
 import cartApi from '@webshop/api-logic/cart';
 
 
-export const restore = createAsyncThunk<CartItem[], string, {rejectValue: string}>(
-  'cart/restore',
+export const get = createAsyncThunk<CartItem[], string, {rejectValue: string}>(
+  'cart/get',
   async (token, {rejectWithValue}) => {
     try {
-      return await cartApi.getAll(token);
+      return await cartApi.get(token);
     } catch (error: any) {
       const message = error.message as string
       return rejectWithValue(message);

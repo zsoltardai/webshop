@@ -12,7 +12,7 @@ import {defaultEditUser} from '@webshop/constants/defaultValues';
 
 import {editUserSchema} from '@webshop/schemas';
 
-import {useAuth, useUser} from '@webshop/hooks';
+import {useUser} from '@webshop/hooks';
 
 
 type Props = {};
