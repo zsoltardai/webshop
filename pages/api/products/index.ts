@@ -7,7 +7,6 @@ import {Prisma} from '@prisma/client';
 import type {Product} from '@webshop/models';
 
 import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
-import { getVariant } from '@webshop/api-logic/variants';
 
 
 export const productsQuery = {

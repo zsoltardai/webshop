@@ -1,4 +1,5 @@
 import type {AppProps} from 'next/app';
+import Head from 'next/head';
 
 import {Layout} from '@webshop/components';
 
@@ -15,8 +16,14 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Analytics />
+        <Head>
+          <title>Webshop</title>
+          <meta name='description' content="A Webshop webalkalmazás egy példa alkalmazés a webfejlesztésben szerzett tapaszalataim összegzésére." />
+          <meta name="theme-color" content="white" />
+          <link rel="shortcut icon" href="/cart.ico" />
+        </Head>
         <Layout {...props} />
+        <Analytics />
       </PersistGate>
     </Provider>
   );

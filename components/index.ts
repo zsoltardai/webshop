@@ -9,3 +9,4 @@ export {default as Link} from './Link';
 export {default as ActivityIndicator} from './ActivityIndicator';
 export {default as Input} from './Input';
 export {default as ControlledInput} from './ControlledInput';
+export {default as Splash} from './Splash';

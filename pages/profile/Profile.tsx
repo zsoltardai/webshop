@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import {useRouter} from 'next/router';
 
 import {ActivityIndicator, Link, Flex} from '@webshop/components';
@@ -26,6 +27,10 @@ const Profile: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <title>Webshop - Profilom</title>
+      </Head>
+
       <Text uppercase marginBottom={12} marginLeft={6}>
         Profil
       </Text>

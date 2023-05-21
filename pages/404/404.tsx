@@ -1,4 +1,6 @@
 import React from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
 import {useRouter} from 'next/router';
 
 import {Text, Flex, Link} from '@webshop/components';
@@ -15,7 +17,19 @@ const NotFound: React.FC = () => {
 
   return (
     <Flex flexDirection='column' alignItems='center'>
-      <img className={styles.image} src="/images/empty.png" alt="404" />
+
+      <Head>
+        <title>Webshop - 404</title>
+      </Head>
+
+      <div className={styles['image-container']}>
+        <Image
+          style={{objectFit: 'contain'}}
+          src="/images/empty.png"
+          alt="404"
+          fill
+        />
+      </div>
 
       <Text variant='h1' color={colors.primary} marginBottom={12}>404</Text>
 

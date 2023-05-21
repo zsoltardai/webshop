@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import {useRouter} from 'next/router';
 
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -42,6 +43,11 @@ const Login: React.FC = () => {
 
   return (
     <Flex flexDirection="column" alignItems="center">
+
+      <Head>
+        <title>Webshop - Bejelentkezés</title>
+      </Head>
+
       <Card width={400} maxWidth="90vw">
         <Text variant='h2'>Bejelentkezés</Text>
         

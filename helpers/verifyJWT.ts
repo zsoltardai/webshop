@@ -33,8 +33,6 @@ export const verifyAdminJWT = async (req: NextApiRequest, res: NextApiResponse<a
 
   const {id, admin} = content;
 
-  console.log(content);
-
   if (!id || !admin) {
     res.status(403).send('Unauthorized!');
     return;
