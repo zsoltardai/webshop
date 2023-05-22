@@ -1,15 +1,19 @@
-import {PrismaClient} from '@prisma/client';
+import type {GetServerSidePropsResult} from 'next';
 
-import {getProducts, productsQuery} from '../api/products';
+import {getProducts, productsQuery} from '@webshop/pages/api/products';
+
+import {client} from '@webshop/prisma/client'
 
 import {client as redis} from '@webshop/redis';
+
+import type {Product} from '@webshop/models';
 
 import hash from '@webshop/utils/hash';
 
 
-const getServerSideProps = async () => {
+type Props = {products: Product[]; hasMore: boolean};
 
-  const client = new PrismaClient();
+export default async (): Promise<GetServerSidePropsResult<Props>> => {
 
   let response;
 
@@ -44,5 +48,3 @@ const getServerSideProps = async () => {
 
   return {props: response};
 };
-
-export default getServerSideProps;

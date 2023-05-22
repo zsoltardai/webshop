@@ -1,18 +1,18 @@
-import {PrismaClient} from '@prisma/client';
+import {client} from '@webshop/prisma/client';
 
 import type {GetStaticPaths} from 'next/types';
+
 import type {Params} from './Product';
 
 
 const getProductSlugs = async (): Promise<Params[]> => {
-  const client = new PrismaClient();
-
   try {
     const slugs = await client.product.findMany({select: {slug: true}});
 
     if (!slugs) return [];
 
     return slugs;
+    
   } catch (error: any) {
 
     return [];
