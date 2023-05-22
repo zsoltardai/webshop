@@ -8,6 +8,10 @@ import type {Product} from '@webshop/models';
 
 import {verifyAdminJWT} from '@webshop/helpers/verifyJWT';
 
+import {client as redis} from '@webshop/redis';
+
+import hash from '@webshop/utils/hash';
+
 
 export const productsQuery = {
   select: {
@@ -89,33 +93,45 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
 
     case 'GET':
 
-      let products, max;
+      let response;
 
       const {after, count} = req.query;
 
-      try {
-        products = await client.product.findMany({
-          skip: after ? Number(after) : undefined,
-          take: count ? Number(count) : undefined,
-          ...productsQuery
-        });
+      const key: string = await hash(JSON.stringify({path: '/products', after, count}));
 
-        max = await client.product.count();
+      const cache: string | null = await redis.get(key);
 
-      } catch (error: any) {
+      if (cache) response = JSON.parse(cache);
 
-        res.status(500).send('Failed to connect to the database, please try again later!');
-        return;
+      if (!cache) {
+        try {
+
+          const skip: number | undefined = Number(after) || undefined;
+
+          const take: number | undefined = Number(count) || undefined;
+
+          const products = await client.product.findMany({skip, take, ...productsQuery});
+  
+          const max = await client.product.count();
+
+          response = {
+            products: getProducts(products),
+            meta: {
+              max,
+              after: Number(after),
+              count: Number(count),
+            },
+          };
+
+          await redis.set(key, JSON.stringify(response), 'EX', 600000);
+        } catch (error: any) {
+  
+          res.status(500).send('Failed to connect to the database, please try again later!');
+          return;
+        }
       }
 
-      res.status(200).json({
-        products: getProducts(products),
-        meta: {
-          max,
-          after: Number(after),
-          count: Number(count),
-        },
-      });
+      res.status(200).json(response);
       return;
 
     default: 
