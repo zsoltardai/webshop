@@ -6,6 +6,10 @@ import {client} from '@webshop/prisma/client';
 
 import {Product, Variant} from '@webshop/models';
 
+import {client as redis} from '@webshop/redis';
+
+import hash from '@webshop/utils/hash';
+
 
 const productQuery = {
   select: {
@@ -46,25 +50,35 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponsePayload
   switch (req.method) {
 
     case 'GET':
-      let product;
+      let response;
 
-      try {
-        product = await client.product.findFirst({
-          where: {slug: slug as string},
-          ...productQuery,
-        });
-      } catch (error: any) {
-        console.log(error.message);
-        res.status(500).send('Failed to connect to the database, please try again later!');
-        return;
+      const key: string = await hash(JSON.stringify({path: '/product', slug}));
+
+      const cache: string | null = await redis.get(key);
+
+      if (cache) response = JSON.parse(cache);
+
+      if (!cache) {
+        try {
+          const product = await client.product.findFirst({where: {slug: slug as string}, ...productQuery});
+
+          if (!product) {
+            res.status(404).send(`We couldn't find a product with the provided slug: ${slug}!`);
+            return;
+          }
+
+          response = getProduct(product);
+
+          await redis.set(key, JSON.stringify(product), 'EX', 600000);
+
+        } catch (error: any) {
+
+          res.status(500).send('Failed to connect to the database, please try again later!');
+          return;
+        }
       }
 
-      if (!product) {
-        res.status(404).send(`We couldn't find a product with the provided slug: ${slug}!`);
-        return;
-      }
-
-      res.status(200).json(getProduct(product));
+      res.status(200).json(response);
       return;
 
     default: 
@@ -114,19 +128,30 @@ const getProduct = (object: GetProductQueryResult): Product => {
 
 export const prefetchProduct = async (slug: string): Promise<Product | undefined> => {
 
+  let response;
+
+  const key: string = await hash(JSON.stringify({path: '/product', slug}));
+
+  const cache: string | null = await redis.get(key);
+
+  if (cache) response = JSON.parse(cache);
+
+  if (!cache) {
     try {
-      const product = await client.product.findFirst({
-        where: {slug: slug as string},
-        ...productQuery,
-      });
+      const product = await client.product.findFirst({where: {slug: slug as string}, ...productQuery});
 
       if (!product) return;
 
-      return getProduct(product);
+      response = getProduct(product);
+
+      await redis.set(key, JSON.stringify(product), 'EX', 600000);
 
     } catch (error: any) {
       return;
     }
+  }
+
+  return response;
 };
 
 export default handler;
