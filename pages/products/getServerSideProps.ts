@@ -1,4 +1,4 @@
-import type {GetServerSidePropsResult} from 'next';
+import type {GetServerSideProps} from 'next';
 
 import {getProducts, productsQuery} from '@webshop/pages/api/products';
 
@@ -13,7 +13,7 @@ import hash from '@webshop/utils/hash';
 
 type Props = {products: Product[]; hasMore: boolean};
 
-export default async (): Promise<GetServerSidePropsResult<Props>> => {
+const getServerSideProps: GetServerSideProps<Props> = async () => {
 
   let response;
 
@@ -48,3 +48,5 @@ export default async (): Promise<GetServerSidePropsResult<Props>> => {
 
   return {props: response};
 };
+
+export default getServerSideProps;
